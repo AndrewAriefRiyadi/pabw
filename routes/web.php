@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProdukController;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        $produks = Produk::all();
+        return view('home',compact('produks'));
+    } else {
+        return view('welcome');
+    }
 });
 
 Route::get('/dashboard', function () {
@@ -26,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::POST('/produk/create', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 });
 
 require __DIR__.'/auth.php';
