@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <a class="text-center bg-slate p-5" href="/produk/{{ Auth::id() }}"> Toko Ku</a>  
+                        <a class="text-center bg-slate p-5" href="/store/{{ Auth::user()->username }}"> My Store</a>  
                 </div>
             </div>
 

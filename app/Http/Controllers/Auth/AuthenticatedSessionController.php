@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Logs;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,7 +30,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $log = new Logs();
+        $log->deskripsi = $request->email . " telah berhasil LOGIN";
+        $log->save();
+
         return redirect('/');
+        
     }
 
     /**

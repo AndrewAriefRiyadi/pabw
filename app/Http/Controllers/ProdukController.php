@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
-    public function show($id){
-        $produks = Produk::where('id_user', '=', $id)->get();
-        return view('produk.show', compact('produks'));
+    public function show($username){
+        $user = User::where('username','=',$username)->get()->first();
+        $produks = Produk::where('id_user', '=', $user->id)->get();
+        return view('produk.show', compact('produks','user'));
     }
 
-    public function create(){
-        return view('produk.create');
+    public function create($username){
+        if (Auth::user()->username == $username) {
+            return view('produk.create');
+        }else {
+            return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
+        }
+        
     }
 
     public function store(Request $request)

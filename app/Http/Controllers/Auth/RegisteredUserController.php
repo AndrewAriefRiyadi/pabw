@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Logs;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -50,8 +51,15 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        $log = new Logs();
+        $log->deskripsi = $request->email . " telah berhasil REGISTER";
+        $log->save();
 
         Auth::login($user);
+
+        $log = new Logs();
+        $log->deskripsi = $request->email . " telah berhasil LOGIN";
+        $log->save();
 
         return redirect(RouteServiceProvider::HOME);
     }

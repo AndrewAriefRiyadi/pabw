@@ -34,9 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
-    Route::POST('/produk/create', [ProdukController::class, 'store'])->name('produk.store');
-    Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+    Route::get('/store/{username}', [ProdukController::class, 'show'])->name('produk.show');
+    Route::get('/store/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/store/{username}/create', [ProdukController::class, 'store'])->name('produk.store');
+
 });
 
 require __DIR__.'/auth.php';
