@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\CookiesController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProdukController;
-use App\Models\Produk;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (auth()->check()) {
-        $produks = Produk::all();
-        return view('home',compact('produks'));
-    } else {
-        return view('welcome');
-    }
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [CookiesController::class, 'setCookie']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,11 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/store/{username}', [ProdukController::class, 'show'])->name('produk.show');
-    Route::get('/store/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
-    Route::post('/store/{username}/create', [ProdukController::class, 'store'])->name('produk.store');
-
 });
 
-require __DIR__.'/auth.php';
+// Route::get('/set-cookie', [CookiesController::class, 'setCookie']);
+Route::get('/get-cookie', [CookiesController::class, 'getCookie']);
+Route::get('/del-cookie', [CookiesController::class, 'deleteCookie']);
+
+require __DIR__ . '/auth.php';

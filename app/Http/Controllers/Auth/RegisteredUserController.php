@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Logs;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -33,33 +32,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'alamat' => ['required', 'string', 'max:255'],
-            'no_hp' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'username' => $request->username,
             'email' => $request->email,
-            'alamat' => $request->alamat,
-            'no_hp' => $request->no_hp,
             'password' => Hash::make($request->password),
-            'saldo' => 0
         ]);
 
         event(new Registered($user));
-        $log = new Logs();
-        $log->deskripsi = $request->email . " telah berhasil REGISTER";
-        $log->save();
 
         Auth::login($user);
-
-        $log = new Logs();
-        $log->deskripsi = $request->email . " telah berhasil LOGIN";
-        $log->save();
 
         return redirect(RouteServiceProvider::HOME);
     }
