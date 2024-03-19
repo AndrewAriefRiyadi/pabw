@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\CookiesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [CookiesController::class, 'setCookie']);
+// Route::get('/', [CookiesController::class, 'setCookie']);
+Route::get('/', [AppController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
