@@ -19,20 +19,20 @@
                         <p class="text-center"> Anda belum menjual produk apapun. <a href="/produk/create" class=" underline text-blue-400"> Tambahkan Produk</a></p>
                     @else
                     @if (Auth::user() == $user)
-                    <a href="/store/{{$user->username}}/create" class=" underline text-blue-400"> Tambahkan Produk</a>
+                    <a href="/produk/{{$user->username}}/create" class=" underline text-blue-400"> Tambahkan Produk</a>
                     @endif
-                        @foreach ($produks as $produk)
                             <div class="flex flex-row gap-4 py-4">
+                                @foreach ($produks as $produk)
                                 <div class="flex flex-col gap-1">
-                                    <a href="/">
+                                    <a href='/produk/{{$user->username}}/{{$produk->id}}'>
                                         <img src="{{asset('storage/'.$produk->foto)}}" class="object-cover h-64 w-64 p-4 bg-gray-400">
                                         <p class=" font-bold pt-4 ">{{$produk->nama}}</p>
                                     </a>
                                     <p> -- RATING -- </p>
                                     <p class=" font-bold ">Rp {{$produk->harga}}</p>
                                 </div>
+                                @endforeach
                             </div>
-                        @endforeach
                     @endif
                     
                 </div>

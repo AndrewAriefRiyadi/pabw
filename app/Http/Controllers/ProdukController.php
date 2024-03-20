@@ -6,6 +6,7 @@ use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Logs;
 
 class ProdukController extends Controller
 {
@@ -41,9 +42,18 @@ class ProdukController extends Controller
         }
         $validatedData['id_user'] = Auth::id();
         $validatedData['status_stok'] = 1;
-        Produk::create($validatedData);
+        $new_product = Produk::create($validatedData);
 
+
+        $logs['deskripsi'] =  Auth::user()->username . ' telah membuat produk dengan id ' .  $new_product->id;
+        Logs::create($logs);
         // Redirect dengan pesan sukses
-        return redirect()->route('produk.show', ['id' => Auth::id()])->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('produk.show', ['username' => Auth::user()->username])->with('success', 'Produk berhasil ditambahkan!');
+    }
+
+    public function show_produk($username, $id){
+        $user = User::where('username','=',$username)->get()->first();
+        $produk = Produk::where('id', '=', $id)->get()->first();
+        return view('produk.show_produk', compact('produk','user'));
     }
 }

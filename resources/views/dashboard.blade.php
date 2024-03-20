@@ -11,6 +11,11 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <div class="flex flex-col gap-4 p-6 bg-white rounded text-blue-500 underline">
+                    <a href="/produk/{{Auth::user()->username}}"> My Store </a>
+                    <a href="/keranjang/{{Auth::user()->username}}"> My Cart </a>
+                </div>
+                
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Produk;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,6 +39,16 @@ class DatabaseSeeder extends Seeder
             'no_hp' => '123456789',
             'password' => Hash::make('123'),
             'saldo' => 99999999
+        ]);
+
+        Produk::create([
+            'id_user' => 2,
+            'nama' => 'barang_tes',
+            'harga'=> 12345,
+            'deskripsi' => 'tes barang',
+            'stok' => 123,
+            'foto' => 'foto',
+            'status_stok' => 1,
         ]);
     }
 }

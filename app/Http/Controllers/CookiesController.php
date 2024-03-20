@@ -11,7 +11,7 @@ class CookiesController extends Controller
     public function setCookie()
     {
         if (!request()->hasCookie('cookie_consent')) {
-            return response(view('welcomw'))->withCookie('cookie_consent', Str::uuid(), 1);
+            return response(view('welcome'))->withCookie('cookie_consent', Str::uuid(), 1);
         }
         return view('welcome');
     }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CookiesController;
+use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/produk/{username}', [ProdukController::class, 'show'])->name('produk.show');
+    Route::get('/produk/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::Post('/produk/{username}/create', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/produk/{username}/{id}', [ProdukController::class, 'show_produk'])->name('produk.store');
+
+    Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::get('/keranjang/{username}', [KeranjangController::class, 'show'])->name('keranjang.show');
+    
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);

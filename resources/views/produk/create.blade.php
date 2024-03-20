@@ -10,7 +10,7 @@
             <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 flex flex-col gap-4 bg-gray-300 text-gray-900 ">
                     <p class=" text-xl font-bold">Create Produk</p>
-                    <form action="/produk/create" method="POST" enctype="multipart/form-data">
+                    <form action="/produk/{{Auth::user()->username}}/create" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="rounded">
                         <div class="mb-4">
