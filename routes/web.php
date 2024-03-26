@@ -39,7 +39,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::get('/keranjang/{username}', [KeranjangController::class, 'show'])->name('keranjang.show');
-    
+    Route::delete('/keranjang/{username}', [KeranjangController::class, 'delete_produk'])->name('keranjang.delete_produk');
+    Route::put('/keranjang/{username}/kurang', [KeranjangController::class, 'kurang_produk'])->name('keranjang.kurang_produk');
+    Route::put('/keranjang/{username}/tambah', [KeranjangController::class, 'tambah_produk'])->name('keranjang.tambah_produk');
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);

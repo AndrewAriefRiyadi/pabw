@@ -14,11 +14,103 @@ class KeranjangController extends Controller
     public function show($username){
         if (Auth::user()->username == $username) {
             $user = User::where('username','=',$username)->get()->first();
-            $produks = Produk::where('id_user', '=', $user->id)->get();
+            $keranjang = Keranjang::where('id_user', $user->id)->first();
+            if ($keranjang) {
+                $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)->get();
+
+                // Membuat array kosong untuk menyimpan data produk beserta jumlahnya
+                $produks = [];
+
+                foreach ($pivot as $item) {
+                    // Mengambil id_produk dan jumlah dari pivot
+                    $id_produk = $item->id_produk;
+                    $jumlah = $item->jumlah;
+
+                    // Mendapatkan data produk berdasarkan id_produk
+                    $produk = Produk::find($id_produk);
+
+                    if ($produk) {
+                        // Menambahkan data produk beserta jumlahnya ke dalam array $produks
+                        $produks[] = (object)[
+                            'produk' => $produk,
+                            'jumlah' => $jumlah
+                        ];
+                    }
+                }
+            }
+            // dd($produks);
             return view('keranjang.show', compact('produks','user'));
         }else {
             return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
         }
+    }
+
+    public function delete_produk(Request $request, $username){
+        try {
+            $request->validate([
+                'id_produk' => 'required'
+            ]);
+    
+            $id_produk = $request->id_produk;
+            $user = User::where('username', '=', $username)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            
+            $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
+                ->where('id_produk', $id_produk)->firstOrFail();
+            
+            $pivot->delete();
+    
+            return redirect()->back()->with('success', 'Produk berhasil dihapus dari keranjang.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }   
+    }
+
+    public function kurang_produk(Request $request, $username){
+        try {
+            $request->validate([
+                'id_produk' => 'required'
+            ]);
+    
+            $id_produk = $request->id_produk;
+            $user = User::where('username', '=', $username)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
+                ->where('id_produk', $id_produk)->firstOrFail();
+            if ($pivot->jumlah > 1) {
+                $pivot->jumlah -= 1;
+                $pivot->save();
+                return redirect()->back()->with('success', 'Produk berhasil dikurangi.');
+            } else {
+                throw new \Exception('Jumlah produk sudah satu, tidak bisa dikurangi lagi.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }   
+    }
+
+    public function tambah_produk(Request $request, $username){
+        try {
+            $request->validate([
+                'id_produk' => 'required'
+            ]);
+    
+            $id_produk = $request->id_produk;
+            $user = User::where('username', '=', $username)->firstOrFail();
+            $produk = Produk::where('id',$id_produk)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
+                ->where('id_produk', $id_produk)->firstOrFail();
+            if ($pivot->jumlah + 1 <=  $produk->stok) {
+                $pivot->jumlah += 1;
+                $pivot->save();
+                return redirect()->back()->with('success', 'Produk berhasil ditambah.');
+            } else {
+                throw new \Exception('Jumlah produk tidak bisa melebihi stok');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }   
     }
     
     public function store(Request $request) {
