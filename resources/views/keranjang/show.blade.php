@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 flex flex-col bg-gray-300 text-gray-900 ">
+                    <h1 class=" font-bold"> KERANJANG </h1>
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -44,20 +45,14 @@
                             </form>
                         </div>
                         @endforeach
-                        <div class="flex flex-row gap-4">
-                            {{-- <img src="{{asset('storage/'.$produk->foto)}}" class="object-cover h-64 w-64 p-4 bg-gray-400">
-                            <div class="flex flex-col gap-4">
-                                <p> -- RATING -- </p>
-                                <p class=" font-bold ">Rp {{$produk->harga}}</p>
-                                <p class=" font-bold ">Stok = {{$produk->stok}}</p>
-                                <form id="formKeranjang">
-                                    @csrf
-                                    <input type="hidden" name="id_produk" value="{{ $produk->id }}">
-                                    <input type="number" name="jumlah" value="1" min="1">
-                                    <button type="submit">Tambah ke Keranjang</button>
-                                </form>
-                            </div> --}}
-                        </div>
+                        @isset($keranjang)
+                            <form action="/pesanan/{{Auth::user()->username}}" method="post">
+                                @csrf
+                                <input type="hidden" name="id_keranjang" value="{{$keranjang->id}}">
+                                <button type="submit" class=" bg-yellow-400 p-2 rounded center"> Buat Pesanan </button>
+                            </form>
+                        @endisset
+                        
                     </div>
                 </div>
             </div>

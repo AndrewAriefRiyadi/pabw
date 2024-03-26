@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CookiesController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/keranjang/{username}', [KeranjangController::class, 'delete_produk'])->name('keranjang.delete_produk');
     Route::put('/keranjang/{username}/kurang', [KeranjangController::class, 'kurang_produk'])->name('keranjang.kurang_produk');
     Route::put('/keranjang/{username}/tambah', [KeranjangController::class, 'tambah_produk'])->name('keranjang.tambah_produk');
+
+    Route::post('/pesanan/{username}', [PesananController::class, 'store'])->name('pesanan.store');
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);

@@ -14,13 +14,11 @@ class KeranjangController extends Controller
     public function show($username){
         if (Auth::user()->username == $username) {
             $user = User::where('username','=',$username)->get()->first();
-            $keranjang = Keranjang::where('id_user', $user->id)->first();
+            $keranjang = Keranjang::where('id_user', $user->id)
+                                    ->where('completed',0)->first();
+            $produks = [];
             if ($keranjang) {
                 $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)->get();
-
-                // Membuat array kosong untuk menyimpan data produk beserta jumlahnya
-                $produks = [];
-
                 foreach ($pivot as $item) {
                     // Mengambil id_produk dan jumlah dari pivot
                     $id_produk = $item->id_produk;
@@ -38,8 +36,8 @@ class KeranjangController extends Controller
                     }
                 }
             }
-            // dd($produks);
-            return view('keranjang.show', compact('produks','user'));
+            // dd($keranjang->id);
+            return view('keranjang.show', compact('produks','user','keranjang'));
         }else {
             return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
         }
@@ -53,7 +51,8 @@ class KeranjangController extends Controller
     
             $id_produk = $request->id_produk;
             $user = User::where('username', '=', $username)->firstOrFail();
-            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)
+                                    ->where('completed',0)->firstOrFail();
             
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
                 ->where('id_produk', $id_produk)->firstOrFail();
@@ -74,7 +73,8 @@ class KeranjangController extends Controller
     
             $id_produk = $request->id_produk;
             $user = User::where('username', '=', $username)->firstOrFail();
-            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)
+                                    ->where('completed',0)->firstOrFail();
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
                 ->where('id_produk', $id_produk)->firstOrFail();
             if ($pivot->jumlah > 1) {
@@ -98,7 +98,8 @@ class KeranjangController extends Controller
             $id_produk = $request->id_produk;
             $user = User::where('username', '=', $username)->firstOrFail();
             $produk = Produk::where('id',$id_produk)->firstOrFail();
-            $keranjang = Keranjang::where('id_user', $user->id)->firstOrFail();
+            $keranjang = Keranjang::where('id_user', $user->id)
+                                    ->where('completed',0)->firstOrFail();
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
                 ->where('id_produk', $id_produk)->firstOrFail();
             if ($pivot->jumlah + 1 <=  $produk->stok) {
@@ -114,18 +115,26 @@ class KeranjangController extends Controller
     }
     
     public function store(Request $request) {
-        $request->validate([
-            'id_produk' => 'required',
-            'jumlah' => 'required'
-        ]);
-        
-        $id_produk = $request->input('id_produk');
-        $jumlah = $request->input('jumlah');
-        
-        $keranjang = $this->getOrCreateKeranjang();
-        $this->addOrUpdateProduk($keranjang, $id_produk, $jumlah);
-        
-        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang']);
+        try {
+            $request->validate([
+                'id_produk' => 'required',
+                'jumlah' => 'required'
+            ]);
+            
+            $id_produk = $request->input('id_produk');
+            $produk = Produk::where('id',$id_produk)->firstOrFail();
+            $jumlah = $request->input('jumlah');
+            if ($jumlah > $produk->stok) {
+                throw new \Exception('Jumlah produk tidak bisa melebihi stok');
+            }else{
+                $keranjang = $this->getOrCreateKeranjang();
+                $this->addOrUpdateProduk($keranjang, $id_produk, $jumlah);
+                return redirect()->back()->with('success', 'Barang berhasil ditambahkan');
+            }
+            
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
     
     private function getOrCreateKeranjang() {
@@ -150,7 +159,7 @@ class KeranjangController extends Controller
         $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
                     ->where('id_produk', $id_produk)
                     ->first();
-        $produk = Produk::where('id', $id_produk)->first();
+        $produk = Produk::where('id', $id_produk)->firstOrFail();
     
         if (!$pivot) {
             $pivot = new PV_Keranjang_Produk();
@@ -161,6 +170,9 @@ class KeranjangController extends Controller
             $pivot->save();
         } else {
             $pivot->jumlah += $jumlah;
+            if ($pivot->jumlah > $produk->stok){
+                throw new \Exception('Produk sudah ada di keranjang & jumlah produk tidak bisa melebihi stok');
+            }
             $pivot->save();
         }
         $keranjang->jumlah_total += $jumlah;
