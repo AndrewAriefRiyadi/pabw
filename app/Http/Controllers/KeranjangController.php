@@ -53,10 +53,12 @@ class KeranjangController extends Controller
             $user = User::where('username', '=', $username)->firstOrFail();
             $keranjang = Keranjang::where('id_user', $user->id)
                                     ->where('completed',0)->firstOrFail();
-            
+            $harga_produk = Produk::where('id',$id_produk)->firstOrFail()->harga;
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
                 ->where('id_produk', $id_produk)->firstOrFail();
-            
+            $keranjang->harga_total -= $harga_produk * $pivot->jumlah;
+            $keranjang->jumlah_total -= $pivot->jumlah;
+            $keranjang->save();
             $pivot->delete();
     
             return redirect()->back()->with('success', 'Produk berhasil dihapus dari keranjang.');
@@ -73,6 +75,7 @@ class KeranjangController extends Controller
     
             $id_produk = $request->id_produk;
             $user = User::where('username', '=', $username)->firstOrFail();
+            $produk = Produk::where('id',$id_produk)->firstOrFail();
             $keranjang = Keranjang::where('id_user', $user->id)
                                     ->where('completed',0)->firstOrFail();
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
@@ -80,6 +83,10 @@ class KeranjangController extends Controller
             if ($pivot->jumlah > 1) {
                 $pivot->jumlah -= 1;
                 $pivot->save();
+
+                $keranjang->harga_total -= $produk->harga;
+                $keranjang->jumlah_total -= 1;
+                $keranjang->save();
                 return redirect()->back()->with('success', 'Produk berhasil dikurangi.');
             } else {
                 throw new \Exception('Jumlah produk sudah satu, tidak bisa dikurangi lagi.');
@@ -105,6 +112,11 @@ class KeranjangController extends Controller
             if ($pivot->jumlah + 1 <=  $produk->stok) {
                 $pivot->jumlah += 1;
                 $pivot->save();
+
+                $keranjang->harga_total += $produk->harga;
+                $keranjang->jumlah_total += 1;
+                $keranjang->save();
+
                 return redirect()->back()->with('success', 'Produk berhasil ditambah.');
             } else {
                 throw new \Exception('Jumlah produk tidak bisa melebihi stok');
@@ -176,7 +188,7 @@ class KeranjangController extends Controller
             $pivot->save();
         }
         $keranjang->jumlah_total += $jumlah;
-        $keranjang->harga_total += $produk->harga;
+        $keranjang->harga_total += $produk->harga * $jumlah;
         $keranjang->save();
     }
     

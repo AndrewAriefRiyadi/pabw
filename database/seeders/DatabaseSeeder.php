@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'dummy alamat',
             'no_hp' => '123456789',
             'password' => Hash::make('123'),
-            'saldo' => 99999999
+            'saldo' => 2000
         ]);
 
         User::create([
@@ -38,15 +38,15 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'tes alamat',
             'no_hp' => '123456789',
             'password' => Hash::make('123'),
-            'saldo' => 99999999
+            'saldo' => 2000
         ]);
 
         Produk::create([
             'id_user' => 2,
             'nama' => 'barang_tes',
-            'harga'=> 12345,
+            'harga'=> 1000,
             'deskripsi' => 'tes barang',
-            'stok' => 123,
+            'stok' => 5,
             'foto' => 'foto',
             'status_stok' => 1,
         ]);

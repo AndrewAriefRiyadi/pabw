@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/keranjang/{username}/tambah', [KeranjangController::class, 'tambah_produk'])->name('keranjang.tambah_produk');
 
     Route::post('/pesanan/{username}', [PesananController::class, 'store'])->name('pesanan.store');
+    Route::get('/pesanan/{username}', [PesananController::class, 'show'])->name('pesanan.show');
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);

@@ -21,6 +21,9 @@
                         </div>
                     @endif
                     <div class="flex flex-col gap-4 py-4">
+                        @empty($produks)
+                            <p> Anda belum memasukkan barang ke dalam keranjang</p>
+                        @endempty
                         @foreach ($produks as $produk)
                         <div class="flex flex-row gap-4">
                             <p>{{$produk->produk->nama}}</p>
@@ -46,7 +49,9 @@
                         </div>
                         @endforeach
                         @isset($keranjang)
-                            <form action="/pesanan/{{Auth::user()->username}}" method="post">
+                        <p class=" self-end">Jumlah Barang = {{$keranjang->jumlah_total}}</p>
+                        <p class=" self-end">Harga Total = {{$keranjang->harga_total}}</p>
+                            <form action="/pesanan/{{Auth::user()->username}}" method="post" class="self-end">
                                 @csrf
                                 <input type="hidden" name="id_keranjang" value="{{$keranjang->id}}">
                                 <button type="submit" class=" bg-yellow-400 p-2 rounded center"> Buat Pesanan </button>

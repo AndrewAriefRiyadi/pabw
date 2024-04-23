@@ -27,6 +27,11 @@
                                 <p> -- RATING -- </p>
                                 <p class=" font-bold ">Rp {{$produk->harga}}</p>
                                 <p class=" font-bold ">Stok = {{$produk->stok}}</p>
+                                <p class=" font-bold ">Status Stok =  @if ($produk->status_stok == 1)
+                                    Tersedia
+                                @else
+                                Tidak Tersedia
+                                @endif</p>
                                 <form id="formKeranjang" action="/keranjang" method="POST" >
                                     @csrf
                                     <input type="hidden" name="id_produk" value="{{ $produk->id }}">
