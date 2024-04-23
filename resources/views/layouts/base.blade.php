@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="MkRqEzTGuoSx6LqJUm0OAKxSgNUYt26wTT7RMUZY">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.ico') }}">
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon"> --}}
     <meta name="theme-color" content="#e87316">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -22,7 +22,7 @@
     <meta name="author" content="MyThrift">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
-    <title>SurfsideMedia</title>
+    <title>MyThrift</title>
 
     <link id="rtl-link" rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/b') }}ootstrap.css">
     <link rel="stylesheet" href="{{asset ('assets/css/vendors/i') }}on.rangeSlider.min.css">
@@ -117,8 +117,7 @@
                             <div class="menu-left">
                                 <div class="brand-logo">
                                     <a href="index.htm">
-                                        <img src="assets/images/logo.png" class="h-logo img-fluid blur-up lazyload"
-                                            alt="logo">
+                                            LOGO
                                     </a>
                                 </div>
 
@@ -177,17 +176,36 @@
                                     </li>
                                     <li class="onhover-dropdown">
                                         <div class="cart-media name-usr">
-                                            <i data-feather="user"></i>
+                                            @auth <span>{{ Auth::user()->name }}</span> @endauth<i data-feather="user"></i>
                                         </div>
                                         <div class="onhover-div profile-dropdown">
                                             <ul>
-                                                <li>
-                                                    <a href="login.html" class="d-block">Login</a>
-                                                </li>
-                                                <li>
-                                                    <a href="register.html" class="d-block">Register</a>
-                                                </li>
-
+                                                @if(Route::has('login'))
+                                                    @auth
+                                                        @if(Auth::user()->utype === 'ADM')
+                                                            <li>
+                                                                <a href="{{ route('admin.index') }}" class="d-block">Dashboard</a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="{{ route('users.index') }}" class="d-block">My Account</a>
+                                                            </li>
+                                                        @endif
+                                                        <li>
+                                                            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('frmlogout').submit();" class="d-block">Logout</a>
+                                                            <form id="frmlogout" action="{{ route('logout') }}" method="POST">
+                                                                @csrf
+                                                            </form>
+                                                        </li>
+                                                    @else  
+                                                        <li>
+                                                            <a href="{{ route('login') }}" class="d-block">Login</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('register') }}" class="d-block">Register</a>
+                                                        </li> 
+                                                    @endauth
+                                                @endif
                                             </ul>
                                         </div>
                                     </li>
@@ -261,8 +279,7 @@
                         <div class="footer-contact">
                             <div class="brand-logo">
                                 <a href="index.htm" class="footer-logo float-start">
-                                    <img src="{{ asset('assets/images/logo.png') }}" class="f-logo img-fluid blur-up lazyload"
-                                        alt="logo">
+                                    LOGO
                                 </a>
                             </div>
                             <ul class="contact-lists" style="clear:both;">
@@ -274,7 +291,7 @@
                                             India</span></span>
                                 </li>
                                 <li>
-                                    <span><b>Email:</b><span class="font-light"> contact@surfsidemedia.in</span></span>
+                                    <span><b>Email:</b><span class="font-light"> contact@mythrift.in</span></span>
                                 </li>
                             </ul>
                         </div>
@@ -501,7 +518,7 @@
                                                         <span class="font-light grid-content">B&Y Jacket</span>
                                                     </div>
                                                     <div class="main-price mt-0 d-block text-center">
-                                                        <h3 class="theme-color">$78.00</h3>
+                                                        <h3 class="theme-color">400K</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -522,7 +539,7 @@
                                                         <span class="font-light grid-content">B&Y Jacket</span>
                                                     </div>
                                                     <div class="main-price mt-0 d-block text-center">
-                                                        <h3 class="theme-color">$78.00</h3>
+                                                        <h3 class="theme-color">400K</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -543,7 +560,7 @@
                                                         <span class="font-light grid-content">B&Y Jacket</span>
                                                     </div>
                                                     <div class="main-price mt-0 d-block text-center">
-                                                        <h3 class="theme-color">$78.00</h3>
+                                                        <h3 class="theme-color">400K</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -564,7 +581,7 @@
                                                         <span class="font-light grid-content">B&Y Jacket</span>
                                                     </div>
                                                     <div class="main-price mt-0 d-block text-center">
-                                                        <h3 class="theme-color">$78.00</h3>
+                                                        <h3 class="theme-color">350K</h3>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1625,7 +1625,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1652,7 +1652,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">210K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -1691,7 +1691,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1757,7 +1757,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1784,7 +1784,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">210K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -1823,7 +1823,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1850,7 +1850,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">210K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -1889,7 +1889,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1916,7 +1916,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">210K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -1955,7 +1955,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -1982,7 +1982,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">210K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -2021,7 +2021,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
@@ -2048,7 +2048,7 @@
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price">
-                                    <div class="theme-color">$21</div>
+                                    <div class="theme-color">200K</div>
                                     <div class="main-price">
                                         <ul class="rating mb-1 mt-0">
                                             <li>
@@ -2087,7 +2087,7 @@
                             <div class="circle-shape"></div>
                             <span class="background-text">Fashion</span>
                             <div class="label-block">
-                                <span class="label label-theme">30% Off</span>
+                                <span class="label label-theme">DISKON 30%</span>
                             </div>
                             <div class="cart-wrap">
                                 <ul>
