@@ -116,7 +116,7 @@
                         <div class="main-menu">
                             <div class="menu-left">
                                 <div class="brand-logo">
-                                    <a href="index.htm">
+                                    <a href="{{ route('app.index') }}">
                                             LOGO
                                     </a>
                                 </div>
@@ -136,7 +136,7 @@
                                                     </span>
                                                 </div>
                                             </li>
-                                            <li><a href="index.htm" class="nav-link menu-title">Home</a></li>
+                                            <li><a href="{{ route('app.index') }}" class="nav-link menu-title">Home</a></li>
                                             <li><a href="shop.html" class="nav-link menu-title">Shop</a></li>
                                             <li><a href="cart/list.html" class="nav-link menu-title">Cart</a></li>
                                             <li><a href="about-us.html" class="nav-link menu-title">About Us</a></li>
@@ -278,7 +278,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="footer-contact">
                             <div class="brand-logo">
-                                <a href="index.htm" class="footer-logo float-start">
+                                <a href="{{ route('app.index') }}" class="footer-logo float-start">
                                     LOGO
                                 </a>
                             </div>
