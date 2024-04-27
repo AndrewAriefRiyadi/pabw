@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\User;
+use App\Models\VL_Status_Barang;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -50,5 +51,24 @@ class DatabaseSeeder extends Seeder
             'foto' => 'foto',
             'status_stok' => 1,
         ]);
+
+        VL_Status_Barang::insert([
+            [
+                'status' => 'Diproses Penjual'
+            ],
+            [
+                'status' => 'Menunggu Kurir'
+            ],
+            [
+                'status' => 'Sedang dikirim'
+            ],
+            [
+                'status' => 'Dikirim Balik'
+            ],
+            [
+                'status' => 'Sampai di tujuan'
+            ],
+        ]);
+        
     }
 }

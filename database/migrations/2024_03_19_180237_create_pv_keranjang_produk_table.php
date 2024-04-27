@@ -17,9 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id_keranjang');
             $table->unsignedBigInteger('id_produk');
             $table->integer('jumlah');
-            $table->string('status_kurir');
+            $table->unsignedBigInteger('id_status');
             $table->foreign('id_produk')
                 ->references('id')->on('produks')
+                ->onDelete('cascade');
+            $table->foreign('id_status')
+                ->references('id')->on('vl_status_barang')
                 ->onDelete('cascade');
             $table->foreign('id_keranjang')
                 ->references('id')->on('keranjangs')
