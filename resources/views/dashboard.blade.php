@@ -12,9 +12,15 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="flex flex-col gap-4 p-6 bg-white rounded text-blue-500 underline">
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <a href="/produk/{{Auth::user()->username}}"> My Store </a>
                     <a href="/keranjang/{{Auth::user()->username}}"> My Cart </a>
                     <a href="/pesanan/{{Auth::user()->username}}"> My Pesanan </a>
+                    <a href="/kurir/barang"> Kurir Barang </a>
                 </div>
                 
             </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KurirController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pesanan/{username}', [PesananController::class, 'store'])->name('pesanan.store');
     Route::get('/pesanan/{username}', [PesananController::class, 'show'])->name('pesanan.show');
+
+    Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);
