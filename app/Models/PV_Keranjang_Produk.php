@@ -13,6 +13,12 @@ class PV_Keranjang_Produk extends Model
         'id_keranjang',
         'id_produk',
         'jumlah',
-        'status_kurir'
+        'id_status'
     ];
+    // Di model yang memiliki foreign key
+    public function status()
+    {
+        return $this->belongsTo(VL_Status_Barang::class, 'id_status');
+    }
+    
 }

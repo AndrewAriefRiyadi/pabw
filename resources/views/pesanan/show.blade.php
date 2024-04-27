@@ -28,7 +28,7 @@
                                     <ul>
                                         @foreach($keranjangProduks[$keranjang->id] as $produk)
                                             <li>
-                                                {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Status: {{$produk->status_kurir}})
+                                                {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Status: {{$produk->status->status}})
                                             </li>
                                         @endforeach
                                     </ul>

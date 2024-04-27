@@ -28,7 +28,7 @@
                                     <ul>
                                         @foreach($keranjangProduks[$keranjang->id] as $produk)
                                             <li>
-                                                {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Nama Penjual: {{$produk->penjual->name}}) (Alamat Penjual: {{$produk->penjual->alamat}}) (Status: {{$produk->status_kurir}})
+                                                {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Nama Penjual: {{$produk->penjual->name}}) (Alamat Penjual: {{$produk->penjual->alamat}}) (Status: {{$produk->status_kurir->status}})
                                             </li>
                                         @endforeach
                                     </ul>
@@ -41,7 +41,6 @@
                                     <p> Alamat = {{$keranjangUsers[$keranjang->id]->alamat}}</p>
                                 @endif
                             </div>
-                            
                         @endforeach
                     </div>
                 </div>

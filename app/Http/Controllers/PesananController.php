@@ -18,7 +18,6 @@ class PesananController extends Controller
             $validatedData = $request->validate([
                 'id_keranjang' => 'required',
             ]);
-            
             $keranjang = Keranjang::where('id', $validatedData['id_keranjang'])->firstOrFail();
             $pivots = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)->get();
             if ($pivots->isEmpty()){
@@ -35,12 +34,10 @@ class PesananController extends Controller
                     // Mengambil id_produk dan jumlah dari pivot
                     $id_produk = $item->id_produk;
                     $jumlah = $item->jumlah;
-                    $item->status_kurir = 'Dikemas';
+                    $item->id_status = 2;
                     $item->save();
-    
                     // Mendapatkan data produk berdasarkan id_produk
                     $produk = Produk::find($id_produk);
-    
                     if ($produk) {
                         // Mengurangi stok produk 
                         $produk->stok -= $jumlah;
@@ -60,14 +57,13 @@ class PesananController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        
     }
+
     public function show($username){
         if (Auth::user()->username == $username) {
             $user = User::where('username','=',$username)->first();
             $keranjangs = Keranjang::where('id_user', $user->id)
                                     ->where('completed',1)->get();
-            
             $keranjangProduks = [];
             foreach ($keranjangs as $keranjang) {
                 $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)->get();
@@ -76,28 +72,24 @@ class PesananController extends Controller
                     // Mengambil id_produk dan jumlah dari pivot
                     $id_produk = $item->id_produk;
                     $jumlah = $item->jumlah;
-                    $status_kurir = $item->status_kurir;
-    
+                    $status = $item->status;
                     // Mendapatkan data produk berdasarkan id_produk
                     $produk = Produk::find($id_produk);
-    
                     if ($produk) {
                         // Menambahkan data produk beserta jumlahnya ke dalam array $produks
                         $produks[] = (object)[
                             'produk' => $produk,
                             'jumlah' => $jumlah,
-                            'status_kurir'=>$status_kurir
+                            'status'=>$status
                         ];
                     }
                 }
                 // Menyimpan array produk ke dalam array asosiatif dengan kunci keranjang
                 $keranjangProduks[$keranjang->id] = $produks;
             }
-    
             return view('pesanan.show', compact('keranjangProduks','user','keranjangs'));
         } else {
             return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
         }
     }
-    
 }

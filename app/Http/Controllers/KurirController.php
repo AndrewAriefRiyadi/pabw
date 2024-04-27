@@ -27,8 +27,8 @@ class KurirController extends Controller
                 foreach ($pivot as $item) {
                     $id_produk = $item->id_produk;
                     $jumlah = $item->jumlah;
-                    $status_kurir = $item->status_kurir;
-                    if($status_kurir == 'Menunggu Kurir'){
+                    $status = $item->status;
+                    if($status->id == 2){
                         // Mendapatkan data produk berdasarkan id_produk
                         $produk = Produk::find($id_produk);
                         if ($produk) {
@@ -42,16 +42,15 @@ class KurirController extends Controller
                                 'produk' => $produk,
                                 'penjual' => $penjual_object,
                                 'jumlah' => $jumlah,
-                                'status_kurir'=>$status_kurir
+                                'status_kurir'=>$status
                             ];
                         }
-                        
                         // Menyimpan array produk ke dalam array asosiatif dengan kunci keranjang
                         $keranjangProduks[$keranjang->id] = $produks;
                         $keranjangUsers[$keranjang->id] = $pembeli_object;
                     }
                     else {
-                        throw new \Exception('Anda tidak memesan produk apapun.');
+                        throw new \Exception('Tidak ada barang yang perlu diantar');
                     }
                 }   
             }
@@ -60,6 +59,5 @@ class KurirController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    
 }
 
