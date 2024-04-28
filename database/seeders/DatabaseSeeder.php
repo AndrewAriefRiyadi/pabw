@@ -54,6 +54,9 @@ class DatabaseSeeder extends Seeder
 
         VL_Status_Barang::insert([
             [
+                'status' => 'Menunggu Penjual'
+            ],
+            [
                 'status' => 'Diproses Penjual'
             ],
             [

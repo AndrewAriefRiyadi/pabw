@@ -34,7 +34,7 @@ class PesananController extends Controller
                     // Mengambil id_produk dan jumlah dari pivot
                     $id_produk = $item->id_produk;
                     $jumlah = $item->jumlah;
-                    $item->id_status = 2;
+                    $item->id_status = 3;
                     $item->save();
                     // Mendapatkan data produk berdasarkan id_produk
                     $produk = Produk::find($id_produk);

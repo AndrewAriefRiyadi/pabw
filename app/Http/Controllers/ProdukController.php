@@ -27,7 +27,6 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-        
         // Validasi input
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',

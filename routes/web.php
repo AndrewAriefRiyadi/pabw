@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pesanan/{username}', [PesananController::class, 'show'])->name('pesanan.show');
 
     Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
+    Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
 });
 
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);

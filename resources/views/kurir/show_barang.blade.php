@@ -21,27 +21,41 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        @foreach($keranjangs as $keranjang)
-                            <div class="bg-white shadow p-4 rounded">
-                                <h2>Pesanan {{ $keranjang->id }}</h2>
-                                @if(isset($keranjangProduks[$keranjang->id]))
-                                    <ul>
-                                        @foreach($keranjangProduks[$keranjang->id] as $produk)
-                                            <li>
-                                                {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Nama Penjual: {{$produk->penjual->name}}) (Alamat Penjual: {{$produk->penjual->alamat}}) (Status: {{$produk->status_kurir->status}})
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                                <h2>Jumlah Barang = {{$keranjang->jumlah_total}}</h2>
-                                <h2>Harga Total = {{$keranjang->harga_total}}</h2>
-                                @if(isset($keranjangUsers[$keranjang->id]))
-                                    <p>Info Pembeli</p>
-                                    <p> Nama = {{ $keranjangUsers[$keranjang->id]->name }} </p>
-                                    <p> Alamat = {{$keranjangUsers[$keranjang->id]->alamat}}</p>
-                                @endif
-                            </div>
-                        @endforeach
+                        @isset($keranjangs)
+                            @foreach($keranjangs as $keranjang)
+                                <div class="bg-white shadow p-4 rounded">
+                                    <h2>Pesanan {{ $keranjang->id }}</h2>
+                                    @if(isset($keranjangProduks[$keranjang->id]))
+                                        <ul>
+                                            @foreach($keranjangProduks[$keranjang->id] as $produk)
+                                                <li>
+                                                    {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Nama Penjual: {{$produk->penjual->name}}) (Alamat Penjual: {{$produk->penjual->alamat}})
+                                                </li>
+                                                (Status: {{$produk->status_kurir->status}})
+                                                <form action="/kurir/barang" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name ='id_pivot' value={{$produk->id_pivot}}>
+                                                    <select name="id_status">
+                                                        @foreach ($produk->list_status as $list)
+                                                            <option value={{$list->id}}> {{$list->status}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <button type="submit" class="p-2 bg-blue-300 rounded">Update</button>
+                                                </form>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                    <h2>Jumlah Total Barang = {{$keranjang->jumlah_total}}</h2>
+                                    <h2>Harga Total = {{$keranjang->harga_total}}</h2>
+                                    @if(isset($keranjangUsers[$keranjang->id]))
+                                        <p>Info Pembeli</p>
+                                        <p> Nama = {{ $keranjangUsers[$keranjang->id]->name }} </p>
+                                        <p> Alamat = {{$keranjangUsers[$keranjang->id]->alamat}}</p>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @endisset
                     </div>
                 </div>
             </div>
