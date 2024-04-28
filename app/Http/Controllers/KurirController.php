@@ -50,11 +50,8 @@ class KurirController extends Controller
     
                     foreach ($pivot as $item) {
                         $status = $item->status;
-                        if($status->id == 3 || $status->id == 4 || $status->id == 5){
-                            $keranjangs[$keranjang->id] = $keranjang;
-                            $list_status = $this->get_list_status($status->id);
+                        $list_status = $this->get_list_status($status->id);
                             $produk = Produk::find($item->id_produk);
-                            
                             if ($produk) {
                                 $penjual = User::find($produk->id_user);
                                 if ($penjual) {
@@ -73,8 +70,11 @@ class KurirController extends Controller
                                     ];
                                 }
                             }
+                        
+                        if($status->id == 3 || $status->id == 4 || $status->id == 5){
+                            $keranjangs[$keranjang->id] = $keranjang;
                         } else {
-                            continue 2; // Melanjutkan ke iterasi berikutnya pada loop foreach terluar
+                            continue;
                         }
                     }
                     $keranjangProduks[$keranjang->id] = $produks;

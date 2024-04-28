@@ -36,12 +36,15 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name ='id_pivot' value={{$produk->id_pivot}}>
-                                                    <select name="id_status">
-                                                        @foreach ($produk->list_status as $list)
-                                                            <option value={{$list->id}}> {{$list->status}} </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <button type="submit" class="p-2 bg-blue-300 rounded">Update</button>
+                                                    @if (!empty($produk->list_status))
+                                                        <select name="id_status">
+                                                            @foreach ($produk->list_status as $list)
+                                                                <option value="{{ $list->id }}">{{ $list->status }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <button type="submit" class="p-2 bg-blue-300 rounded">Update</button>
+                                                    @endif
+                                                    
                                                 </form>
                                             @endforeach
                                         </ul>
