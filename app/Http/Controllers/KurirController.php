@@ -41,13 +41,11 @@ class KurirController extends Controller
                 $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)->get();
                 $produks = []; // Inisialisasi array produk untuk setiap keranjang
                 $pembeli = User::find($keranjang->id_user);
-    
                 if ($pembeli) {
                     $pembeli_object = (object)[
                         'name' => $pembeli->name,
                         'alamat' => $pembeli->alamat,
                     ];
-    
                     foreach ($pivot as $item) {
                         $status = $item->status;
                         $list_status = $this->get_list_status($status->id);
@@ -59,7 +57,6 @@ class KurirController extends Controller
                                         'name' => $penjual->name,
                                         'alamat' => $penjual->alamat
                                     ];
-    
                                     $produks[] = (object)[
                                         'id_pivot' => $item->id,
                                         'produk' => $produk,
@@ -70,7 +67,6 @@ class KurirController extends Controller
                                     ];
                                 }
                             }
-                        
                         if($status->id == 3 || $status->id == 4 || $status->id == 5){
                             $keranjangs[$keranjang->id] = $keranjang;
                         } else {
@@ -81,7 +77,6 @@ class KurirController extends Controller
                     $keranjangUsers[$keranjang->id] = $pembeli_object;
                 }
             }
-    
             return view('kurir.show_barang', compact('keranjangProduks','keranjangUsers','keranjangs'));
         } catch  (\Throwable $e){
             return view('kurir.show_barang')->with('error', $e->getMessage());
@@ -105,5 +100,7 @@ class KurirController extends Controller
         }
         
     }
+
+    
 }
 

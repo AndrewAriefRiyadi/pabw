@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/produk/{username}', [ProdukController::class, 'show'])->name('produk.show');
     Route::get('/produk/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::Post('/produk/{username}/create', [ProdukController::class, 'store'])->name('produk.store');
-    Route::get('/produk/{username}/{id}', [ProdukController::class, 'show_produk'])->name('produk.store');
+    Route::get('/produk/{username}/{id}', [ProdukController::class, 'show_produk'])->name('produk.show_produk');
+    Route::get('/produk/{username}/{id}/edit', [ProdukController::class, 'edit_produk'])->name('produk.edit_produk');
+    Route::put('/produk/{username}/{id}/edit', [ProdukController::class, 'update_produk'])->name('produk.update_produk');
 
     Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::get('/keranjang/{username}', [KeranjangController::class, 'show'])->name('keranjang.show');
