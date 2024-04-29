@@ -95,4 +95,19 @@ class ProdukController extends Controller
             return redirect()->back()->with('error', 'Anda tidak mempunyai akses.');
         }
     }
+
+    public function delete_produk(Request $request, $username, $id_produk){
+        if ($username == Auth::user()->username) {
+            try {
+                $produk = Produk::find($id_produk);
+                $produk->delete();
+                return redirect()->route('produk.show', ['username' => $username])->with('success', 'Produk berhasil di-hapus!');
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', $th->getMessage());
+            }
+            
+        }else{
+            return redirect()->back()->with('error', 'Anda tidak mempunyai akses.');
+        }
+    }
 }
