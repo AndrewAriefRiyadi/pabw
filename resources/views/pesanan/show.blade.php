@@ -30,6 +30,14 @@
                                             <li>
                                                 {{ $produk->produk->nama }} (Jumlah: {{ $produk->jumlah }}) (Status: {{$produk->status->status}})
                                             </li>
+                                            @if ($produk->status->id == 6 )
+                                                <form action="/pesanan/{{Auth::user()->username}}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="id_pivot" value="{{$produk->id_pivot}}">
+                                                    <button type="submit" class="p-2 bg-blue-300 rounded"> Pesanan Sudah Diterima</button>
+                                                </form>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 @endif

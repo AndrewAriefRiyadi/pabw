@@ -90,6 +90,7 @@ class PesananController extends Controller
                     if ($produk) {
                         // Menambahkan data produk beserta jumlahnya ke dalam array $produks
                         $produks[] = (object)[
+                            'id_pivot' => $item->id,
                             'produk' => $produk,
                             'jumlah' => $jumlah,
                             'status'=>$status
@@ -158,5 +159,28 @@ class PesananController extends Controller
         } else {
             return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
         }
+    }
+
+    public function diterima(Request $request, $username){
+        try {
+            $validatedData = $request->validate([
+                'id_pivot' => 'required',
+            ]);
+            $id_pivot = $validatedData['id_pivot'];
+            $pivot = PV_Keranjang_Produk::find($id_pivot);
+            $produk = Produk::find($pivot->id_produk);
+            $penjual = User::find($produk->id_user);
+            $harga_total = $produk->harga * $pivot->jumlah;
+
+            $penjual->saldo += $harga_total;
+            $penjual->save();
+
+            $pivot->id_status = 7;
+            $pivot->save();
+            return redirect()->back()->with('success', 'Pesanan Telah Diterima');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
     }
 }

@@ -81,6 +81,9 @@ class DatabaseSeeder extends Seeder
             [
                 'status' => 'Sampai di tujuan'
             ],
+            [
+                'status' => 'DiTerima Pembeli'
+            ],
         ]);
         
     }
