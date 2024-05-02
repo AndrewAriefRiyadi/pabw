@@ -105,7 +105,6 @@ class ProdukController extends Controller
             } catch (\Throwable $th) {
                 return redirect()->back()->with('error', $th->getMessage());
             }
-            
         }else{
             return redirect()->back()->with('error', 'Anda tidak mempunyai akses.');
         }

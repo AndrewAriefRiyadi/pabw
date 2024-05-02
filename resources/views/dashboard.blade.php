@@ -20,6 +20,7 @@
                     <a href="/produk/{{Auth::user()->username}}"> My Store </a>
                     <a href="/keranjang/{{Auth::user()->username}}"> My Cart </a>
                     <a href="/pesanan/{{Auth::user()->username}}"> My Pesanan </a>
+                    <a href="/pesanan/{{Auth::user()->username}}/toko"> My Pesanan Toko </a>
                     <a href="/kurir/barang"> Kurir Barang </a>
                 </div>
                 

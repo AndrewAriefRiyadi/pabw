@@ -53,10 +53,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Produk::create([
-            'id_user' => 2,
-            'nama' => 'barang_tes2',
+            'id_user' => 1,
+            'nama' => 'barang_dummy',
             'harga'=> 1000,
-            'deskripsi' => 'tes barang',
+            'deskripsi' => 'dummy barang',
             'stok' => 5,
             'foto' => 'foto',
             'status_stok' => 1,

@@ -44,7 +44,6 @@
                                                         </select>
                                                         <button type="submit" class="p-2 bg-blue-300 rounded">Update</button>
                                                     @endif
-                                                    
                                                 </form>
                                             @endforeach
                                         </ul>

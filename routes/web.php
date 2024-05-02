@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pesanan/{username}', [PesananController::class, 'store'])->name('pesanan.store');
     Route::get('/pesanan/{username}', [PesananController::class, 'show'])->name('pesanan.show');
+    Route::get('/pesanan/{username}/toko', [PesananController::class, 'show_toko'])->name('pesanan.show_toko');
 
     Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
     Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
