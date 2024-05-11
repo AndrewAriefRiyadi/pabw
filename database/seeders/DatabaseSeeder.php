@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,25 +20,28 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        \App\Models\Brand::factory(6)->create();
+        \App\Models\Category::factory(6)->create();
+        \App\Models\Product::factory(6)->create();
 
-        User::create([
-            'name' => 'dummy',
-            'username' => 'dummy',
-            'email' => 'dummy@gmail.com',
-            'alamat' => 'dummy alamat',
-            'no_hp' => '123456789',
-            'password' => Hash::make('123'),
-            'saldo' => 99999999
-        ]);
+        // User::create([
+        //     'name' => 'dummy',
+        //     'username' => 'dummy',
+        //     'email' => 'dummy@gmail.com',
+        //     'alamat' => 'dummy alamat',
+        //     'no_hp' => '123456789',
+        //     'password' => Hash::make('123'),
+        //     'saldo' => 99999999
+        // ]);
 
-        User::create([
-            'name' => 'tes',
-            'username' => 'tes',
-            'email' => 'tes@gmail.com',
-            'alamat' => 'tes alamat',
-            'no_hp' => '123456789',
-            'password' => Hash::make('123'),
-            'saldo' => 99999999
-        ]);
+        // User::create([
+        //     'name' => 'tes',
+        //     'username' => 'tes',
+        //     'email' => 'tes@gmail.com',
+        //     'alamat' => 'tes alamat',
+        //     'no_hp' => '123456789',
+        //     'password' => Hash::make('123'),
+        //     'saldo' => 99999999
+        // ]);
     }
 }
