@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [CookiesController::class, 'setCookie']);
 Route::get('/', [AppController::class, 'index'])->name('app.index');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/product/{slug}', [ShopController::class, 'productDetails'])->name('shop.product.details');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
