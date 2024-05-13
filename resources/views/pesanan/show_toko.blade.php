@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 flex flex-col bg-gray-300 text-gray-900 ">
-                    <h1 class=" font-bold"> PESANAN </h1>
+                    <h1 class=" font-bold"> PESANAN TOKO </h1>
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
