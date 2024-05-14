@@ -19,15 +19,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3>{{ $product->name }}</h3>
+                <h3>{{ $produk->nama }}</h3>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('app.index') }}">
+                            <a href="/produk/{{$user->username}}">
                                 <i class="fas fa-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $produk->nama }}</li>
                     </ol>
                 </nav>
             </div>
@@ -46,11 +46,11 @@
                                 <div class="col-lg-2">
                                     <div class="details-image-vertical black-slide rounded">
                                         <div>
-                                            <img src="{{ asset('assets/images/fashion/product/front/') }}/{{ $product->image }}" class="img-fluid blur-up lazyload" alt="{{ $product->name }}">
+                                            <img src="{{asset('storage/'.$produk->foto)}}" class="img-fluid blur-up lazyload" alt="{{ $produk->nama }}">
                                         </div>
-                                        @if($product->images)
+                                        @if($produk->images)
                                         @php
-                                           $images = explode(',',$product->images);
+                                            $images = explode(',',$produk->images);
                                         @endphp
                                         @foreach ($image as $image)
                                             <div>
@@ -64,12 +64,12 @@
                                 <div class="col-lg-10">
                                     <div class="details-image-1 ratio_asos">
                                         <div>
-                                            <img src="{{ asset('assets/images/fashion/product/front/') }}/{{ $product->image }}" class="img-fluid w-100 image_zoom_cls-0 blur-up lazyload" alt="{{ $product->name }}">
+                                            <img src="{{asset('storage/'.$produk->foto)}}"" class="img-fluid w-100 image_zoom_cls-0 blur-up lazyload" alt="{{ $produk->nama }}">
                                         </div>
 
-                                        @if($product->images)
+                                        @if($produk->images)
                                         @php
-                                           $images = explode(',',$product->images);
+                                            $images = explode(',',$produk->images);
                                         @endphp
                                         @foreach ($image as $image)
                                             <div>
@@ -93,14 +93,14 @@
                                 <div class="product-count">
                                     <ul>
                                         <li>
-                                            <img src="../assets/images/gif/fire.gif"
-                                                class="img-fluid blur-up lazyload" alt="image">
+                                            {{-- <img src="../assets/images/gif/fire.gif"
+                                                class="img-fluid blur-up lazyload" alt="image"> --}}
                                             <span class="p-counter">37</span>
                                             <span class="lang">orders in last 24 hours</span>
                                         </li>
                                         <li>
-                                            <img src="../assets/images/gif/person.gif"
-                                                class="img-fluid user_img blur-up lazyload" alt="image">
+                                            {{-- <img src="../assets/images/gif/person.gif"
+                                                class="img-fluid user_img blur-up lazyload" alt="image"> --}}
                                             <span class="p-counter">44</span>
                                             <span class="lang">active view this</span>
                                         </li>
@@ -108,7 +108,7 @@
                                 </div>
 
                                 <div class="details-image-concept">
-                                    <h2>{{ $product->name }}</h2>
+                                    <h2>{{ $produk->nama }}</h2>
                                 </div>
 
                                 <div class="label-section">
@@ -117,17 +117,17 @@
                                 </div>
 
                                 <h3 class="price-detail">
-                                    @if($product->sale_price)
-                                        Rp{{ $product->sale_price }} 
-                                    <del>Rp{{ $product->regular_price }}</del><span>
-                                        {{ round((($product->regular_price - $product->sale_price)/$product->regular_price)*100) }}
+                                    @if($produk->sale_price)
+                                        Rp{{ $produk->sale_price }} 
+                                    <del>Rp{{ $produk->harga }}</del><span>
+                                        {{ round((($produk->harga - $produk->sale_price)/$produk->harga)*100) }}
                                         % off</span>        
                                     @else
-                                        {{ $product->regular_price }}      
+                                        {{ $produk->harga }}      
                                     @endif
                                 </h3>
 
-                                <div class="color-image">
+                                {{-- <div class="color-image">
                                     <div class="image-select">
                                         <h5>Color :</h5>
                                         <ul class="image-section">
@@ -151,10 +151,10 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div id="selectSize" class="addeffect-section product-description border-product">
-                                    <h6 class="product-title size-text">select size
+                                    {{-- <h6 class="product-title size-text">select size
                                         <a href="javascript:void(0)" data-bs-toggle="modal"
                                             data-bs-target="#sizemodal">size chart</a>
                                     </h6>
@@ -176,18 +176,24 @@
                                                 <a href="javascript:void(0)">xl</a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
 
                                     <h6 class="product-title product-title-2 d-block">quantity</h6>
 
                                     <div class="qty-box">
                                         <div class="input-group">
-                                            <span class="input-group-prepend">
+                                            <form id="formKeranjang" action="/keranjang" method="POST" >
+                                                @csrf
+                                                <input type="hidden" name="id_produk" value="{{ $produk->id }}">
+                                                <input type="number" name="jumlah" value="1" min="1">
+                                            </form>
+                                            {{-- <span class="input-group-prepend">
                                                 <button type="button" class="btn quantity-left-minus"
                                                     onclick="updateQuantity()" data-type="minus" data-field="">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
                                             </span>
+                                            
                                             <input type="text" name="quantity" id="quantity"
                                                 class="form-control input-number" value="1">
                                             <span class="input-group-prepend">
@@ -195,7 +201,7 @@
                                                     onclick="updateQuantity()" data-type="plus" data-field="">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
-                                            </span>
+                                            </span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -205,15 +211,10 @@
                                         <i class="fa fa-bookmark fz-16 me-2"></i>
                                         <span>Wishlist</span>
                                     </a>
-                                    <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('addtocart').submit();"                                         
+                                    <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('formKeranjang').submit();"                                         
                                         id="cartEffect" class="btn btn-solid hover-solid btn-animation">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Add To Cart</span>
-                                        <form id="addtocart" method="post" action="{{ route('cart.store') }}">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $product->id }}"> 
-                                            <input type="hidden" name="quantity" id="qty" value="1">
-                                        </form>
                                     </a>
 
 
@@ -230,7 +231,7 @@
 
                                 <div class="mt-2 mt-md-3 border-product">
                                     <h6 class="product-title hurry-title d-block">Hurry Up! Left <span>10</span> in
-                                        @if($product->stock_status=='instock')
+                                        @if($produk->stock_status=='instock')
                                             Instock
                                         @else
                                             Out of Stock
@@ -320,7 +321,7 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="desc">
                             <div class="shipping-chart">
-                                {{ $product->description }}
+                                {{ $produk->description }}
                             </div>
                         </div>
 
@@ -801,7 +802,7 @@
             <div class="col-12">
                 <h2 class="mb-lg-4 mb-3">Customers Also Bought These</h2>
                 <div class="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space">
-                    @foreach ($rproducts as $rproduct)
+                    {{-- @foreach ($rproducts as $rproduct)
                     <div>
                         <div class="product-box">
                             <div class="img-wrapper">
@@ -876,7 +877,7 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </div>

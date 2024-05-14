@@ -118,7 +118,7 @@
                         <div class="main-menu">
                             <div class="menu-left">
                                 <div class="brand-logo">
-                                    <a href="{{ route('dashboard') }}">
+                                    <a href="/">
                                             LOGO
                                     </a>
                                 </div>
@@ -138,7 +138,7 @@
                                                     </span>
                                                 </div>
                                             </li>
-                                            <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Home</a></li>
+                                            <li><a href="/" class="nav-link menu-title">Home</a></li>
                                             <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Shop</a></li>
                                             <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Cart</a></li>
                                             <li><a href="#" class="nav-link menu-title">About Us</a></li>

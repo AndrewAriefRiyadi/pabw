@@ -163,7 +163,7 @@
             <div class="col-xl-2 col-lg-2 col-6">
                 <div class="product-box">
                     <div class="img-wrapper">
-                        <a href="product/details.html">
+                        <a href="/produk/{{$produk->user->username}}/{{$produk->id}}">
                             <img src="assets/images/fashion/product/front/10.jpg"
                                 class="w-100 bg-img blur-up lazyload" alt="">
                         </a>

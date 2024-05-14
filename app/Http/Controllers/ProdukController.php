@@ -52,7 +52,7 @@ class ProdukController extends Controller
     public function show_produk($username, $id){
         $user = User::where('username','=',$username)->get()->first();
         $produk = Produk::where('id', '=', $id)->get()->first();
-        return view('produk.show_produk', compact('produk','user'));
+        return view('produk.details', compact('produk','user'));
     }
 
     public function edit_produk($username, $id_produk){

@@ -17,4 +17,9 @@ class Produk extends Model
         'stok',
         'status_stok',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }
