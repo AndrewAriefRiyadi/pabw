@@ -36,7 +36,7 @@ class KeranjangController extends Controller
                 }
             }
             // dd($keranjang->id);
-            return view('keranjang.show', compact('produks','user','keranjang'));
+            return view('keranjang.cart', compact('produks','user','keranjang'));
         }else {
             return redirect('/')->withErrors(['message' => 'Gagal Membuka halaman']);
         }

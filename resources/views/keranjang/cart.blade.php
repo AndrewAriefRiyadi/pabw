@@ -19,12 +19,12 @@
                 <h3>Cart</h3>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('app.index') }}">
+                        <li class="breadcrumb-produk">
+                            <a href="/">
                                 <i class="fas fa-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                        <li class="breadcrumb-produk active" aria-current="page">Cart</li>
                     </ol>
                 </nav>
             </div>
@@ -35,7 +35,25 @@
 <!-- Cart Section Start -->
 <section class="cart-section section-b-space">
     <div class="container">
-        @if($cartItems->Count() > 0)
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        @empty($produks)
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Your Cart is Empty !</h2>
+                    <h5 class='mt-3'>Add produks to it now</h5>
+                    <a href="/" class="btn btn-warning mt-5">Shop Now</a>
+                </div>
+            </div>
+        @endempty
         <div class="row">
             <div class="col-md-12 text-center">
                 <table class="table cart-table">
@@ -50,16 +68,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cartItems as $item)
+                        @foreach ($produks as $produk)
                         <tr>
                             <td>
-                                <a href="{{ route('shop.product.details',['slug'=>$item->model->slug]) }}">
-                                    <img src="{{ asset("assets/images/fashion/product/front") }}/{{ $item->model->image }}" class="blur-up lazyloaded"
-                                        alt="{{ $item->model->name }}">
+                                <a href="/produk/{{$produk->produk->user->username}}/{{$produk->produk->id}}">
+                                    <img src="{{asset('storage/'.$produk->produk->foto)}}" class="blur-up lazyloaded"
+                                        alt="{{ $produk->produk->foto }}">
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('shop.product.details',['slug'=>$item->model->slug]) }}">{{ $item->model->name }}</a>
+                                <a href="/produk/{{$produk->produk->user->username}}/{{$produk->produk->id}}">{{ $produk->produk->nama }}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col">
                                         <div class="qty-box">
@@ -70,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <h2>Rp {{ $item->price }}</h2>
+                                        <h2>Rp {{ $produk->produk->harga }}</h2>
                                     </div>
                                     <div class="col">
                                         <h2 class="td-color">
@@ -82,24 +100,35 @@
                                 </div>
                             </td>
                             <td>
-                                <h2>Rp {{ $item->price }}</h2>
+                                <h2>Rp {{ $produk->produk->harga }}</h2>
                             </td>
                             <td>
-                                <div class="qty-box">
-                                    <div class="input-group">
-                                        <input type="number" name="quantity"
-                                            data-rowid="ba02b0dddb000b25445168300c65386d"
-                                            class="form-control input-number" value="{{ $item->qty }}">
-                                    </div>
+                                <div class="qty-box flex flex-row gap-3 justify-center">
+                                    <form action="/keranjang/{{Auth::user()->username}}/kurang" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="id_produk" value="{{$produk->produk->id}}">
+                                        <button type="submit" class=" bg-blue-300 px-2 rounded center"> - </button>
+                                    </form>
+                                    <p>{{$produk->jumlah}}</p>
+                                    <form action="/keranjang/{{Auth::user()->username}}/tambah" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="id_produk" value="{{$produk->produk->id}}">
+                                        <button type="submit" class=" bg-green-400 px-2 rounded center"> + </button>
+                                    </form>
                                 </div>
                             </td>
                             <td>
-                                <h2 class="td-color">Rp {{ $item->subtotal }}</h2>
+                                <h2 class="td-color">Rp {{ $produk->jumlah * $produk->produk->harga}}</h2>
                             </td>
                             <td>
-                                <a href="javascript:void(0)">
-                                    <i class="fas fa-times"></i>
-                                </a>
+                                <form action="/keranjang/{{Auth::user()->username}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id_produk" value="{{$produk->produk->id}}">
+                                    <button type="submit" class=" bg-red-400 p-2 rounded center"> DELETE </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -109,25 +138,25 @@
             <div class="col-12 mt-md-5 mt-4">
                 <div class="row">
                     <div class="col-sm-7 col-5 order-1">
-                        <div class="left-side-button text-end d-flex d-block justify-content-end">
+                        {{-- <div class="left-side-button text-end d-flex d-block justify-content-end">
                             <a href="javascript:void(0)"
                                 class="text-decoration-underline theme-color d-block text-capitalize">clear
-                                all items</a>
-                        </div>
+                                all produks</a>
+                        </div> --}}
                     </div>
                     <div class="col-sm-5 col-7">
                         <div class="left-side-button float-start">
-                            <a href="{{ route('shop.index') }}" class="btn btn-solid-default btn fw-bold mb-0 ms-0">
+                            <a href="/" class="btn btn-solid-default btn fw-bold mb-0 ms-0">
                                 <i class="fas fa-arrow-left"></i> Continue Shopping</a>
                         </div>
                     </div>
                 </div>
             </div>
-
+            @if (!empty($produks))
             <div class="cart-checkout-section">
                 <div class="row g-4">
                     <div class="col-lg-4 col-sm-6">
-                        <div class="promo-section">
+                        {{-- <div class="promo-section">
                             <form class="row g-3">
                                 <div class="col-7">
                                     <input type="text" class="form-control" id="number" placeholder="Coupon Code">
@@ -136,14 +165,11 @@
                                     <button class="btn btn-solid-default rounded btn">Apply Coupon</button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="col-lg-4 col-sm-6 ">
-                        <div class="checkout-button">
-                            <a href="checkout" class="btn btn-solid-default btn fw-bold">
-                                Check Out <i class="fas fa-arrow-right ms-1"></i></a>
-                        </div>
+                        
                     </div>
 
                     <div class="col-lg-4">
@@ -152,29 +178,25 @@
                                 <div class="total-details">
                                     <div class="top-details">
                                         <h3>Cart Totals</h3>
-                                        <h6>Sub Total <span>Rp {{ Cart::instance('cart')->subtotal() }}</span></h6>
-                                        <h6>Tax <span>{{ Cart::instance('cart')->tax() }}</span></h6>
-                                        <h6>Total <span>{{ Cart::instance('cart')->total() }}</span></h6>
+                                        <h3>Rp {{$keranjang->harga_total}}</h3>
                                     </div>
                                     <div class="bottom-details">
-                                        <a href="checkout">Process Checkout</a>
+                                        <form action="/pesanan/{{Auth::user()->username}}" method="post" class="self-end">
+                                            @csrf
+                                            <input type="hidden" name="id_keranjang" value="{{$keranjang->id}}">
+                                            <button type="submit" class=" bg-yellow-400 p-2 rounded center w-full"> Buat Pesanan </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+            @endif
+            
         </div>     
-        @else
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2>Your Cart is Empty !</h2>
-                    <h5 class='mt-3'>Add Items to it now</h5>
-                    <a href="{{ route('shop.index') }}" class="btn btn-warning mt-5">Shop Now</a>
-                </div>
-            </div>
-        @endif
     </div>
 </section>
 @endsection

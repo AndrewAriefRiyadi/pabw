@@ -139,7 +139,9 @@
                                                 </div>
                                             </li>
                                             <li><a href="/" class="nav-link menu-title">Home</a></li>
-                                            <li><a href="/produk/{{Auth::user()->username}}" class="nav-link menu-title">Shop</a></li>
+                                            @if (Auth::user())
+                                                <li><a href="/produk/{{Auth::user()->username}}" class="nav-link menu-title">Shop</a></li>
+                                            @endif
                                             <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Cart</a></li>
                                             <li><a href="#" class="nav-link menu-title">About Us</a></li>
                                             <li><a href="#" class="nav-link menu-title">Contact Us</a>
@@ -151,6 +153,12 @@
                             </nav>
                             <div class="menu-right">
                                 <ul>
+                                    @if (Auth::user())
+                                        <li>
+                                            <p>Rp {{Auth::user()->saldo}}</p>
+                                        </li>
+                                    @endif
+                                    
                                     <li>
                                         <div class="search-box theme-bg-color">
                                             <i data-feather="search"></i>
@@ -166,9 +174,10 @@
                                             </a>
                                         </div>
                                     </li> --}}
+                                    @if (Auth::user())
                                     <li class="onhover-dropdown wislist-dropdown">
                                         <div class="cart-media">
-                                            <a href="{{ route('dashboard') }}">
+                                            <a href="/keranjang/{{Auth::user()->username}}">
                                                 <i data-feather="shopping-cart"></i>
                                                 {{-- <span id="cart-count" class="label label-theme rounded-pill">
                                                     {{ Cart::instance('cart')->content()->count() }}
@@ -176,6 +185,8 @@
                                             </a>
                                         </div>
                                     </li>
+                                    @endif
+                                    
                                     <li class="onhover-dropdown">
                                         <div class="cart-media name-usr">
                                             @auth <span>{{ Auth::user()->name }}</span> @endauth<i data-feather="user"></i>
