@@ -13,7 +13,7 @@ class ProdukController extends Controller
     public function show($username){
         $user = User::where('username','=',$username)->get()->first();
         $produks = Produk::where('id_user', '=', $user->id)->get();
-        return view('produk.show', compact('produks','user'));
+        return view('produk.shop', compact('produks','user'));
     }
 
     public function create($username){

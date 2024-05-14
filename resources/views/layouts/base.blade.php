@@ -139,7 +139,7 @@
                                                 </div>
                                             </li>
                                             <li><a href="/" class="nav-link menu-title">Home</a></li>
-                                            <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Shop</a></li>
+                                            <li><a href="/produk/{{Auth::user()->username}}" class="nav-link menu-title">Shop</a></li>
                                             <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Cart</a></li>
                                             <li><a href="#" class="nav-link menu-title">About Us</a></li>
                                             <li><a href="#" class="nav-link menu-title">Contact Us</a>

@@ -123,7 +123,7 @@
                                         {{ round((($produk->harga - $produk->sale_price)/$produk->harga)*100) }}
                                         % off</span>        
                                     @else
-                                        {{ $produk->harga }}      
+                                        Rp {{ $produk->harga }}      
                                     @endif
                                 </h3>
 
@@ -223,8 +223,8 @@
 
                                 <ul class="product-count shipping-order">
                                     <li>
-                                        <img src="../assets/images/gif/truck.png" class="img-fluid blur-up lazyload"
-                                            alt="image">
+                                        {{-- <img src="../assets/images/gif/truck.png" class="img-fluid blur-up lazyload"
+                                            alt="image"> --}}
                                         <span class="lang">Free shipping for orders above $500 USD</span>
                                     </li>
                                 </ul>

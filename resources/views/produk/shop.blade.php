@@ -28,17 +28,20 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3>Shop</h3>
+                <h3>Toko {{$user->username}}</h3>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('app.index') }}">
+                            <a href="/produk/{{$user->username}}">
                                 <i class="fas fa-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                        <li class="breadcrumb-item active" aria-current="page">Toko {{$user->username}}</li>
                     </ol>
                 </nav>
+                @if (Auth::user() == $user)
+                    <a href="/produk/{{$user->username}}/create" class=" underline text-blue-400"> Tambahkan Produk</a>
+                @endif
             </div>
         </div>
     </div>
@@ -453,22 +456,22 @@
                 <!-- Prodcut setion -->
                 <div
                     class="row g-sm-4 g-3 row-cols-lg-4 row-cols-md-3 row-cols-2 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section">
-                    @foreach ($products as $product)
+                    @foreach ($produks as $produk)
                     <div>
                         <div class="product-box">
                             <div class="img-wrapper">
                                 <div class="front">
-                                    <a href="{{ route('shop.product.details',['slug'=>$product->slug]) }}">
-                                        <img src="assets/images/fashion/product/front/{{ $product->image }}"
+                                    <a href="/produk/{{$user->username}}/{{$produk->id}}">
+                                        <img src="{{asset('storage/'.$produk->foto)}}"
                                             class="bg-img blur-up lazyload" alt="">
                                     </a>
                                 </div>
-                                <div class="back">
-                                    <a href="{{ route('shop.product.details',['slug'=>$product->slug]) }}">
-                                        <img src="assets/images/fashion/product/back/{{ $product->image }}"
+                                {{-- <div class="back">
+                                    <a href="#">
+                                        <img src="{{asset('storage/'.$produk->foto)}}"
                                             class="bg-img blur-up lazyload" alt="">
                                     </a>
-                                </div>
+                                </div> --}}
                                 <div class="cart-wrap">
                                     <ul>
                                         <li>
@@ -491,7 +494,7 @@
                             </div>
                             <div class="product-details">
                                 <div class="rating-details">
-                                    <span class="font-light grid-content">{{ $product->category->name }}</span>
+                                    <span class="font-light grid-content">{{ $produk->nama }}</span>
                                     <ul class="rating mt-0">
                                         <li>
                                             <i class="fas fa-star theme-color"></i>
@@ -511,31 +514,29 @@
                                     </ul>
                                 </div>
                                 <div class="main-price">
-                                    <a href="{{ route('shop.product.details',['slug'=>$product->slug]) }}" class="font-default">
-                                        <h5 class="ms-0">{{ $product->name }}</h5>
+                                    <a href="#" class="font-default">
+                                        <h5 class="ms-0">{{ $produk->nama }}</h5>
                                     </a>
                                     <div class="listing-content">
-                                        <span class="font-light">{{ $product->category->name }}</span>
-                                        <p class="font-light">{{ $product->short_description }}</p>
+                                        <span class="font-light">{{ $produk->nama }}</span>
+                                        <p class="font-light">{{ $produk->deksripsi }}</p>
                                     </div>
-                                    <h3 class="theme-color">{{ $product->regular_price }}</h3>
+                                    <h3 class="theme-color">{{ $produk->harga}}</h3>
                                     <button class="btn listing-content">Add To Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-
-
                 </div>
-                {{-- {{ $products->links("pagination.default") }} --}}
+                {{-- {{ $produks->links("pagination.default") }} --}}
             </div>
         </div>
     </div>
 </section>
 <!-- Shop Section end -->
 <!-- Subscribe Section Start -->
-<section class="subscribe-section section-b-space">
+{{-- <section class="subscribe-section section-b-space">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-6">
@@ -556,5 +557,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection
