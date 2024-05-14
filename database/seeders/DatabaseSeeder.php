@@ -62,6 +62,26 @@ class DatabaseSeeder extends Seeder
             'status_stok' => 1,
         ]);
 
+        Produk::create([
+            'id_user' => 1,
+            'nama' => 'barang_dummy2',
+            'harga'=> 1000,
+            'deskripsi' => 'dummy barang',
+            'stok' => 5,
+            'foto' => 'foto',
+            'status_stok' => 1,
+        ]);
+
+        Produk::create([
+            'id_user' => 1,
+            'nama' => 'barang_dummy3',
+            'harga'=> 1000,
+            'deskripsi' => 'dummy barang',
+            'stok' => 5,
+            'foto' => 'foto',
+            'status_stok' => 1,
+        ]);
+
         VL_Status_Barang::insert([
             [
                 'status' => 'Menunggu Penjual'
