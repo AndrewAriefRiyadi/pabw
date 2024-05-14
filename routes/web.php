@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CookiesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [CookiesController::class, 'setCookie']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -57,8 +59,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
 });
 
+Route::get('/tes', function () {
+    return view('index');
+});
+
 // Route::get('/set-cookie', [CookiesController::class, 'setCookie']);
 Route::get('/get-cookie', [CookiesController::class, 'getCookie']);
 Route::get('/del-cookie', [CookiesController::class, 'deleteCookie']);
 
 require __DIR__ . '/auth.php';
+
+Auth::routes();
