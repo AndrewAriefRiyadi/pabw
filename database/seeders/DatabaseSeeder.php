@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Produk;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,8 +22,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        
+        Role::create(['name'=>'user']);
+        Role::create(['name'=>'admin']);
+        Role::create(['name'=>'kurir']);
 
-        User::create([
+        $user = User::create([
             'name' => 'dummy',
             'username' => 'dummy',
             'email' => 'dummy@gmail.com',
@@ -31,8 +36,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
             'saldo' => 2000
         ]);
+        $user->assignRole('user');
 
-        User::create([
+        $user = User::create([
             'name' => 'tes',
             'username' => 'tes',
             'email' => 'tes@gmail.com',
@@ -41,6 +47,29 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
             'saldo' => 2000
         ]);
+        $user->assignRole('user');
+
+        $user = User::create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+            'alamat' => 'admin alamat',
+            'no_hp' => '123456789',
+            'password' => Hash::make('123'),
+            'saldo' => 2000
+        ]);
+        $user->assignRole('admin');
+
+        $user = User::create([
+            'name' => 'kurir',
+            'username' => 'kurir',
+            'email' => 'kurir@gmail.com',
+            'alamat' => 'kurir alamat',
+            'no_hp' => '123456789',
+            'password' => Hash::make('123'),
+            'saldo' => 2000
+        ]);
+        $user->assignRole('kurir');
 
         Produk::create([
             'id_user' => 2,

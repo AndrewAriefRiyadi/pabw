@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CookiesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
@@ -55,8 +56,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/pesanan/{username}', [PesananController::class, 'diterima'])->name('pesanan.diterima');
     Route::get('/pesanan/{username}/toko', [PesananController::class, 'show_toko'])->name('pesanan.show_toko');
 
-    Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
-    Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
+
+    Route::group(['middleware' => ['role:kurir']], function () {
+        Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
+        Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
+        });
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        });
 });
 
 Route::get('/tes', function () {
