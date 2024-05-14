@@ -30,6 +30,9 @@
                         <li class="breadcrumb-item active" aria-current="page">{{ $produk->nama }}</li>
                     </ol>
                 </nav>
+                @if (Auth::id() == $produk->id_user)
+                    <a href="{{$produk->id}}/edit" class="px-4 py-2"> Edit </a>
+                @endif
             </div>
         </div>
     </div>
