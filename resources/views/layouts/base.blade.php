@@ -144,6 +144,7 @@
                                                 <li><a href="/keranjang/{{Auth::user()->username}}" class="nav-link menu-title">Cart</a></li>
                                                 <li><a href="/pesanan/{{Auth::user()->username}}" class="nav-link menu-title">Pesanan</a></li>
                                                 <li><a href="/pesanan/{{Auth::user()->username}}/toko" class="nav-link menu-title">Pesanan Toko</a></li>
+                                                <li><a href="/kurir/barang" class="nav-link menu-title">Kurir</a></li>
                                             @endif
                                             
                                         </ul>

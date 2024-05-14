@@ -7,6 +7,7 @@ use App\Models\VL_Status_Barang;
 use App\Models\User;
 use App\Models\Produk;
 use App\Models\Pesanan;
+use App\Models\Logs;
 use App\Models\PV_Keranjang_Produk;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -177,6 +178,9 @@ class PesananController extends Controller
 
             $pivot->id_status = 7;
             $pivot->save();
+
+            $logs = ['deskripsi' => 'Pesanan dengan id_pivot ('.$id_pivot.') berhasil diterima. Penjual dengan username (' . $penjual->username . ') menerima saldo sebesar '.$harga_total];
+            Logs::create($logs);
             return redirect()->back()->with('success', 'Pesanan Telah Diterima');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
