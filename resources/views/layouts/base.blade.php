@@ -141,12 +141,11 @@
                                             <li><a href="/" class="nav-link menu-title">Home</a></li>
                                             @if (Auth::user())
                                                 <li><a href="/produk/{{Auth::user()->username}}" class="nav-link menu-title">Shop</a></li>
+                                                <li><a href="/keranjang/{{Auth::user()->username}}" class="nav-link menu-title">Cart</a></li>
+                                                <li><a href="/pesanan/{{Auth::user()->username}}" class="nav-link menu-title">Pesanan</a></li>
+                                                <li><a href="/pesanan/{{Auth::user()->username}}/toko" class="nav-link menu-title">Pesanan Toko</a></li>
                                             @endif
-                                            <li><a href="{{ route('dashboard') }}" class="nav-link menu-title">Cart</a></li>
-                                            <li><a href="#" class="nav-link menu-title">About Us</a></li>
-                                            <li><a href="#" class="nav-link menu-title">Contact Us</a>
-                                            </li>
-                                            <li><a href="#" class="nav-link menu-title">Blog</a></li>
+                                            
                                         </ul>
                                     </div>
                                 </div>

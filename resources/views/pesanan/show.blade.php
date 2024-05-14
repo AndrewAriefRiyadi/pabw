@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800  leading-tight">
-            Show Produk
-        </h2>
-    </x-slot>
-
+@extends('layouts.base')
+@push('styles')
+    <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo2.css') }}">
+@endpush
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
@@ -23,7 +21,7 @@
                     <div class="flex flex-col gap-4 py-4">
                         @foreach($keranjangs as $keranjang)
                             <div class="bg-white shadow p-4 rounded">
-                                <h2>Pesanan {{ $keranjang->id }}</h2>
+                                <h4>Pesanan {{ $keranjang->id }}</h4>
                                 @if(isset($keranjangProduks[$keranjang->id]))
                                     <ul>
                                         @foreach($keranjangProduks[$keranjang->id] as $produk)
@@ -41,8 +39,8 @@
                                         @endforeach
                                     </ul>
                                 @endif
-                                <h2>Jumlah Barang = {{$keranjang->jumlah_total}}</h2>
-                                <h2>Harga Total = {{$keranjang->harga_total}}</h2>
+                                <h4>Jumlah Barang = {{$keranjang->jumlah_total}}</h4>
+                                <h4>Harga Total = {{$keranjang->harga_total}}</h4>
                             </div>
                             
                         @endforeach
@@ -51,4 +49,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection
