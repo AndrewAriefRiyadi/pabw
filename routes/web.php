@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/user/edit/{id}', [UserController::class, 'suspend'])->name('user.suspend');
         });
     
 

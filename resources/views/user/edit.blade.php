@@ -55,11 +55,13 @@
                         </div>
                     </div>
                     </form>
-                    {{-- <form action="/produk/{{Auth::user()->username}}/{{$user->id}}/edit" method="POST" enctype="multipart/form-data">
+                    @role('admin')
+                    <form action="/user/edit/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="w-fit bg-red-500 text-white py-2 px-4 rounded-md "> DELETE </button>
-                    </form> --}}
+                        <button type="submit" class="w-fit bg-red-500 text-white py-2 px-4 rounded-md "> Suspend </button>
+                    </form>
+                    @endrole
                 </div>
             </div>
         </div>

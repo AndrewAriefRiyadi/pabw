@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,5 +33,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Menghapus kolom deleted_at
+        });
+
     }
 };
