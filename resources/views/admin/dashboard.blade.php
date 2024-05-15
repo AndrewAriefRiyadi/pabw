@@ -46,6 +46,7 @@
                                     <td>
                                         <div class="flex flex-col">
                                             <button class="w-fit" onclick="openPopup('{{ $user->username }}', {{ $user->saldo }})">Edit Saldo</button>
+                                            <a href="/user/edit/{{$user->id}}">Edit User </a>
                                         </div> 
                                     </td>
                                 </tr>

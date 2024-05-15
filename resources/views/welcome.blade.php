@@ -216,8 +216,10 @@
                                     </ul>
                                 </div>
                             </div>
-                            <p class="font-light mb-sm-2 mb-0">{{$produk->deskripsi}}</p>
-                            <a href="product/details.html" class="font-default">
+                            <a href="/produk/{{$produk->user->username}}" class="font-default">
+                                <h5>{{$produk->user->username}}</h5>
+                            </a>
+                            <a href="/produk/{{$produk->user->username}}/{{$produk->id}}" class="font-default">
                                 <h5>{{$produk->nama}}</h5>
                             </a>
                         </div>

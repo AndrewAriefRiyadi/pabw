@@ -8,6 +8,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KurirController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::group(['middleware' => ['role:user|admin']], function () {
+        Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
+        });
+    
+
     Route::get('/produk/{username}', [ProdukController::class, 'show'])->name('produk.show');
     Route::get('/produk/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::Post('/produk/{username}/create', [ProdukController::class, 'store'])->name('produk.store');
@@ -56,15 +63,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/pesanan/{username}', [PesananController::class, 'diterima'])->name('pesanan.diterima');
     Route::get('/pesanan/{username}/toko', [PesananController::class, 'show_toko'])->name('pesanan.show_toko');
 
+    Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
 
     Route::group(['middleware' => ['role:kurir']], function () {
         Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
-        Route::put('/kurir/barang', [KurirController::class, 'update_status'])->name('kurir.update_status');
         });
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-
         Route::put('/admin/updateSaldo', [AdminController::class, 'updateSaldo'])->name('admin.updateSaldo');
         });
 });
