@@ -147,8 +147,10 @@
                                                 @role('kurir')
                                                 <li><a href="/kurir/barang" class="nav-link menu-title">Kurir</a></li>
                                                 @endrole
+                                                @role('admin')
+                                                <li><a href="/admin" class="nav-link menu-title">Admin</a></li>
+                                                @endrole
                                             @endif
-                                            
                                         </ul>
                                     </div>
                                 </div>

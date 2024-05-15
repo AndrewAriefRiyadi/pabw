@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+        Route::put('/admin/updateSaldo', [AdminController::class, 'updateSaldo'])->name('admin.updateSaldo');
         });
 });
 
