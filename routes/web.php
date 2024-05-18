@@ -42,8 +42,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user/edit/{id}', [UserController::class, 'suspend'])->name('user.suspend');
-        });
-    
+    });
+
 
     Route::get('/produk/{username}', [ProdukController::class, 'show'])->name('produk.show');
     Route::get('/produk/{username}/create', [ProdukController::class, 'create'])->name('produk.create');
@@ -68,12 +68,15 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['role:kurir']], function () {
         Route::get('/kurir/barang', [KurirController::class, 'show_barang'])->name('kurir.show_barang');
-        });
+    });
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/admin/users/create', [AdminController::class, 'create_user'])->name('admin.create_user');
+        Route::post('/admin/users/create', [AdminController::class, 'insert_user'])->name('admin.insert_user');
         Route::put('/admin/updateSaldo', [AdminController::class, 'updateSaldo'])->name('admin.updateSaldo');
-        });
+    });
 });
 
 Route::get('/tes', function () {

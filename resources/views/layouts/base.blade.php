@@ -33,6 +33,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/s') }}lick/slick-theme.css">
     <link id="color-link" rel="stylesheet" type="text/css" href="{{asset ('assets/css/demo4.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .h-logo {
