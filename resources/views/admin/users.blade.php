@@ -46,6 +46,7 @@
                                 <th>No HP</th>
                                 <th>Saldo</th>
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,14 +67,23 @@
                                                 , <!-- Tambahkan koma jika bukan peran terakhir -->
                                             @endif
                                         @endforeach
-                                    </td>                                    
+                                    </td>
+                                    <td>
+                                        @if ($user->deleted_at)
+                                            <!-- Icon untuk pengguna yang telah dihapus (soft deleted) -->
+                                            <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 00-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 001.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z" clip-rule="evenodd"/></svg>
+                                        @else
+                                            <!-- Icon untuk pengguna yang tidak dihapus -->
+                                            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-7.414l-2.293-2.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l5-5a1 1 0 00-1.414-1.414L9 10.586z" clip-rule="evenodd"/></svg>
+                                        @endif
+                                    </td>                                  
                                     <td>
                                         <div class="flex flex-col gap-2">
                                             <button class="w-fit bg-gray-300 p-1 rounded"
                                                 onclick="openPopup('{{ $user->username }}', {{ $user->saldo }})">Edit
                                                 Saldo</button>
                                             <a class="w-fit bg-gray-300 p-1 rounded"
-                                                href="/user/edit/{{ $user->id }}">Edit User</a>
+                                                href="/admin/users/edit/{{ $user->id }}">Edit User</a>
                                         </div>
                                     </td>
                                 </tr>

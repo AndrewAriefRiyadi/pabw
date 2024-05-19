@@ -49,20 +49,4 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
-    public function suspend($id)
-    {
-        if (Auth::user()->hasRole('admin') or Auth::user()->id == $id) {
-            try {
-                $user = User::find($id);
-                $user->delete();
-
-                Logs::create(['deskripsi' => 'Admin suspend akun dengan username ' . $user->username]);
-                return redirect()->route('admin.index');
-            } catch (\Throwable $th) {
-                return redirect()->back()->with('error', $th->getMessage());
-            }
-        } else {
-            return redirect()->back();
-        }
-    }
 }

@@ -41,50 +41,45 @@
                         </div>
                     @endif
                     <p class=" text-xl font-bold">Create User</p>
-                    <form action="/admin/users/create" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/users/edit/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="rounded">
                             <div class="mb-4">
                                 <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama User</label>
-                                <input value="" type="text" name="name" id="name"
+                                <input value="{{ $user->name }}" type="text" name="name" id="name"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     placeholder="Nama" required>
                             </div>
                             <div class="mb-4">
                                 <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                                <input value="" type="text" name="username" id="username"
+                                <input value="{{ $user->username }}" type="text" name="username" id="username"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     placeholder="username" required>
                             </div>
                             <div class="mb-4">
-                                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                                <input value="" type="password" name="password" id="password"
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="password" required>
-                            </div>
-                            <div class="mb-4">
                                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">E-mail</label>
-                                <input value="" type="text" name="email" id="email"
+                                <input value="{{ $user->email }}" type="text" name="email" id="email"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     placeholder="email" required>
                             </div>
                             <div class="mb-4">
                                 <label for="alamat" class="block text-gray-700 text-sm font-bold mb-2">Alamat</label>
-                                <input value="" type="text" name="alamat" id="alamat"
+                                <input value="{{ $user->alamat }}" type="text" name="alamat" id="alamat"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     placeholder="alamat" required>
                             </div>
                             <div class="mb-4">
                                 <label for="no_hp" class="block text-gray-700 text-sm font-bold mb-2">No HP</label>
-                                <input value=" " type="number" name="no_hp" id="no_hp"
+                                <input value="{{ $user->no_hp }}" type="number" name="no_hp" id="no_hp"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     placeholder="no_hp" required>
                             </div>
                             <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role</label>
                             <select name="role" id="role">
-                                <option value="admin">admin</option>
-                                <option value="user">user</option>
-                                <option value="kurir">kurir</option>
+                                <option value="admin" {{ $user->hasRole('admin') ? 'selected' : '' }}>admin</option>
+                                <option value="user" {{ $user->hasRole('user') ? 'selected' : '' }}>user</option>
+                                <option value="kurir" {{ $user->hasRole('kurir') ? 'selected' : '' }}>kurir</option>
                             </select>
                             <div class="mt-8">
                                 <button type="submit"
@@ -92,13 +87,22 @@
                             </div>
                         </div>
                     </form>
-                    {{-- @role('admin')
-                        <form action="/user/edit/{{ $user->id }}" method="POST" enctype="multipart/form-data">
+                    @if ($user->deleted_at)
+                        <form action="/admin/users/edit/{{ $user->id }}/restore" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <button type="submit" class="w-fit bg-green-700 text-white py-2 px-4 rounded-md "> Restore
+                            </button>
+                        </form>
+                    @else
+                        <form action="/admin/users/edit/{{ $user->id }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="w-fit bg-red-500 text-white py-2 px-4 rounded-md "> Suspend </button>
+                            <button type="submit" class="w-fit bg-red-500 text-white py-2 px-4 rounded-md "> Suspend
+                            </button>
                         </form>
-                    @endrole --}}
+                    @endif
+
                 </div>
             </div>
         </div>
