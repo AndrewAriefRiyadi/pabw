@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
+
 <body class="bg-gray-100">
 
     <div class="flex min-h-screen">
@@ -16,9 +18,11 @@
                 <h1 class="text-2xl font-bold">MyThrift</h1>
             </div>
             <nav class="flex-grow p-4">
-                <a href="{{ route('admin.dashboard') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}"
+                    class="block py-2.5 px-4 rounded hover:bg-gray-700">Dashboard</a>
                 <a href="{{ route('admin.users') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Users</a>
                 <a href="{{ route('admin.produks') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Produks</a>
+                <a href="{{ route('admin.logs') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Logs</a>
                 <a href="/" class="text-white block py-2.5 px-4 rounded hover:bg-gray-700">Back to Home</a>
             </nav>
         </aside>
@@ -29,12 +33,24 @@
                 <h2 class="text-3xl font-semibold text-gray-800">Admin</h2>
                 <div class="flex items-center">
                     <div class="relative">
-                        <button id="dropdownButton" class="relative z-10 block p-2 bg-white border rounded-full shadow focus:outline-none">
-                            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 110-4 2 2 0 010 4z"/><path fill-rule="evenodd" d="M.458 8.042A9 9 0 1116.25 2.13L19.6.206a.75.75 0 01.93 1.127l-3.522 3.48A8.963 8.963 0 0118 9a9 9 0 11-17.542-.958z" clip-rule="evenodd"/></svg>
+                        <button id="dropdownButton"
+                            class="relative z-10 block p-2 bg-white border rounded-full shadow focus:outline-none">
+                            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 12a2 2 0 110-4 2 2 0 010 4z" />
+                                <path fill-rule="evenodd"
+                                    d="M.458 8.042A9 9 0 1116.25 2.13L19.6.206a.75.75 0 01.93 1.127l-3.522 3.48A8.963 8.963 0 0118 9a9 9 0 11-17.542-.958z"
+                                    clip-rule="evenodd" />
+                            </svg>
                         </button>
-                        <div id="dropdownMenu" class="hidden absolute right-0 z-20 w-48 py-2 mt-2 bg-white border rounded-lg shadow-xl">
+                        <div id="dropdownMenu"
+                            class="hidden absolute right-0 z-20 w-48 py-2 mt-2 bg-white border rounded-lg shadow-xl">
                             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('frmlogout').submit();"
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+                            <form id="frmlogout" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -50,7 +66,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var dropdownButton = document.getElementById('dropdownButton');
             var dropdownMenu = document.getElementById('dropdownMenu');
-            
+
             dropdownButton.addEventListener('click', function() {
                 dropdownMenu.classList.toggle('hidden');
             });
@@ -63,4 +79,5 @@
         });
     </script>
 </body>
+
 </html>

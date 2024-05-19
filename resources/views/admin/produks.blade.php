@@ -32,7 +32,7 @@
                     </div>
                 @endif
                 <div class="flex flex-col gap-4 py-4">
-                    <h2 class=" font-bold ">produks</h2>
+                    <h2 class=" font-bold ">Produks</h2>
                     <a href="{{ route('admin.create_produk') }}" class="py-1 px-2 bg-blue-950 rounded text-white w-fit">Create
                         Produk</a>
                     <table id="tableproduks" class=" w-full">
@@ -41,6 +41,7 @@
                                 <th>ID</th>
                                 <th>Nama Barang</th>
                                 <th>Username</th>
+                                <th>Foto</th>
                                 <th>Deskripsi</th>
                                 <th>Harga</th>
                                 <th>Stok</th>
@@ -54,6 +55,7 @@
                                     <td>{{ $produk->id }}</td>
                                     <td>{{ $produk->nama }}</td>
                                     <td>{{ $produk->user->username }}</td>
+                                    <td><img src="{{ asset('storage/' . $produk->foto) }}" style="width: 64px; height: 64px; object-fit: cover;" class="blur-up lazyload" alt="{{ $produk->nama }}"></td>
                                     <td>{{ $produk->deskripsi }}</td>
                                     <td>{{ 'Rp ' . number_format($produk->harga, 0, ',', '.') }}</td>
                                     <td>{{ $produk->stok }}</td>

@@ -85,6 +85,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/produks/create', [AdminController::class, 'store_produk'])->name('admin.store_produk');
         Route::get('/admin/produks/edit/{id}', [AdminController::class, 'edit_produk'])->name('admin.edit_produk');
         Route::put('/admin/produks/edit/{id}', [AdminController::class, 'update_produk'])->name('admin.update_produk');
+
+        Route::get('/admin/logs', [AdminController::class, 'logs'])->name('admin.logs');
     });
 });
 

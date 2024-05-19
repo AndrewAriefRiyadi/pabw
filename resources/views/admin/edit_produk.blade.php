@@ -75,6 +75,7 @@
                                 <input type="file" name="foto" id="foto"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                                     rows="4" placeholder="foto"></input>
+                                <p class=" italic text-red-500">biarkan jika tidak ingin mengganti foto</p>
                             </div>
                             <div class="mb-4">
                                 <label for="deskripsi" class="block text-gray-700 text-sm font-bold mb-2">Deskripsi</label>

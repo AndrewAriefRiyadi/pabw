@@ -15,6 +15,12 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function logs()
+    {
+        $logs = Logs::all();
+        return view('admin.logs', compact('logs'));
+    }
     public function users()
     {
         $users = User::withTrashed()->get();
