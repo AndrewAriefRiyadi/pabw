@@ -11,6 +11,7 @@
         }
     </style>
 @endpush
+
 @section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -40,52 +41,48 @@
                             </span>
                         </div>
                     @endif
-                    <p class=" text-xl font-bold">Create User</p>
-                    <form action="/admin/users/create" method="POST" enctype="multipart/form-data">
+                    <p class=" text-xl font-bold">Create Produk</p>
+                    <form action="/admin/produks/create" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="rounded">
                             <div class="mb-4">
-                                <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama User</label>
-                                <input value="" type="text" name="name" id="name"
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="Nama" required>
+                                <label for="id_user" class="block text-gray-700 text-sm font-bold mb-2">User</label>
+                                <select name="id_user">
+                                    @foreach ($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-4">
-                                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                                <input value="" type="text" name="username" id="username"
+                                <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama Produk</label>
+                                <input type="text" name="nama" id="nama"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="username" required>
+                                    placeholder="Nama Produk" required>
                             </div>
                             <div class="mb-4">
-                                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                                <input value="" type="password" name="password" id="password"
+                                <label for="harga" class="block text-gray-700 text-sm font-bold mb-2">Harga (Rp)</label>
+                                <input type="number" name="harga" id="harga"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="password" required>
+                                    placeholder="Harga" required>
                             </div>
                             <div class="mb-4">
-                                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">E-mail</label>
-                                <input value="" type="text" name="email" id="email"
+                                <label for="foto" class="block text-gray-700 text-sm font-bold mb-2">Foto</label>
+                                <input type="file" name="foto" id="foto"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="email" required>
+                                    rows="4" placeholder="foto" required></input>
                             </div>
                             <div class="mb-4">
-                                <label for="alamat" class="block text-gray-700 text-sm font-bold mb-2">Alamat</label>
-                                <input value="" type="text" name="alamat" id="alamat"
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="alamat" required>
+                                <label for="deskripsi" class="block text-gray-700 text-sm font-bold mb-2">Deskripsi</label>
+                                <textarea name="deskripsi" id="deskripsi"
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4"
+                                    placeholder="Deskripsi" required></textarea>
                             </div>
                             <div class="mb-4">
-                                <label for="no_hp" class="block text-gray-700 text-sm font-bold mb-2">No HP</label>
-                                <input value=" " type="number" name="no_hp" id="no_hp"
+                                <label for="stok" class="block text-gray-700 text-sm font-bold mb-2">Stok</label>
+                                <input type="number" name="stok" id="stok"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="no_hp" required>
+                                    placeholder="Stok" required>
                             </div>
-                            <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role</label>
-                            <select name="role" id="role">
-                                <option value="admin">admin</option>
-                                <option value="user">user</option>
-                                <option value="kurir">kurir</option>
-                            </select>
                             <div class="mt-8">
                                 <button type="submit"
                                     class="w-fit bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Simpan</button>

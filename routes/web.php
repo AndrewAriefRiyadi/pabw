@@ -79,6 +79,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/users/create', [AdminController::class, 'insert_user'])->name('admin.insert_user');
         Route::put('/admin/updateSaldo', [AdminController::class, 'updateSaldo'])->name('admin.updateSaldo');
         Route::delete('/admin/users/edit/{id}', [AdminController::class, 'suspend_user'])->name('admin.suspend_user');
+
+        Route::get('/admin/produks', [AdminController::class, 'produks'])->name('admin.produks');
+        Route::get('/admin/produks/create', [AdminController::class, 'create_produk'])->name('admin.create_produk');
+        Route::post('/admin/produks/create', [AdminController::class, 'store_produk'])->name('admin.store_produk');
+        Route::get('/admin/produks/edit/{id}', [AdminController::class, 'edit_produk'])->name('admin.edit_produk');
+        Route::put('/admin/produks/edit/{id}', [AdminController::class, 'update_produk'])->name('admin.update_produk');
     });
 });
 

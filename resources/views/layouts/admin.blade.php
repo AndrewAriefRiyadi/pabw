@@ -18,6 +18,7 @@
             <nav class="flex-grow p-4">
                 <a href="{{ route('admin.dashboard') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Dashboard</a>
                 <a href="{{ route('admin.users') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Users</a>
+                <a href="{{ route('admin.produks') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700">Produks</a>
                 <a href="/" class="text-white block py-2.5 px-4 rounded hover:bg-gray-700">Back to Home</a>
             </nav>
         </aside>

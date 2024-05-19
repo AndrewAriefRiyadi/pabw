@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Logs;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ class AdminController extends Controller
 
             $user->syncRoles([]);
             $user->assignRole($validatedData['role']);
-            
+
             $logs['deskripsi'] = Auth::user()->username . ' telah update user dengan username ' . $user->username;
             Logs::create($logs);
             return redirect()->route('admin.users')->with('success', 'User berhasil ditambahkan!');
@@ -114,6 +115,88 @@ class AdminController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function produks()
+    {
+        $produks = Produk::all();
+        return view('admin.produks', compact('produks'));
+    }
+
+    public function create_produk()
+    {
+        $users = User::all();
+        return view('admin.create_produk', compact('users'));
+    }
+
+    public function store_produk(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'id_user' => 'required|numeric|max:255',
+                'nama' => 'required|string|max:255',
+                'harga' => 'required|numeric|min:0',
+                'foto' => 'image|file|max:1024',
+                'deskripsi' => 'required|string',
+                'stok' => 'required|integer|min:0',
+            ]);
+            // Simpan produk ke database
+            if ($request->file('foto')) {
+                $validatedData['foto'] = $request->file('foto')->store('foto-produks');
+            }
+
+            if ($validatedData['stok'] >= 1) {
+                $validatedData['status_stok'] = 1;
+            } else {
+                $validatedData['status_stok'] = 0;
+            }
+
+            $new_product = Produk::create($validatedData);
+            $logs['deskripsi'] = Auth::user()->username . ' telah membuat produk dengan id ' . $new_product->id;
+            Logs::create($logs);
+            return redirect()->route('admin.produks')->with('success', 'Produk berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function edit_produk($id)
+    {
+        $users = User::all();
+        $produk = Produk::find($id);
+        return view('admin.edit_produk', compact('users', 'produk'));
+    }
+
+    public function update_produk(Request $request, $id)
+    {
+        try {
+            $validatedData = $request->validate([
+                'id_user' => 'required|numeric|max:255',
+                'nama' => 'required|string|max:255',
+                'harga' => 'required|numeric|min:0',
+                'foto' => 'image|file|max:1024',
+                'deskripsi' => 'required|string',
+                'stok' => 'required|integer|min:0',
+            ]);
+            // Simpan produk ke database
+            if ($request->file('foto')) {
+                $validatedData['foto'] = $request->file('foto')->store('foto-produks');
+            }
+
+            if ($validatedData['stok'] >= 1) {
+                $validatedData['status_stok'] = 1;
+            } else {
+                $validatedData['status_stok'] = 0;
+            }
+            $produk = Produk::find($id);
+            $produk->update($validatedData);
+            $logs['deskripsi'] = Auth::user()->username . ' telah meng-update produk dengan id ' . $produk->id;
+            Logs::create($logs);
+            return redirect()->route('admin.produks')->with('success', 'Produk berhasil diupdate!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
 
     public function updateSaldo(Request $request)
     {
