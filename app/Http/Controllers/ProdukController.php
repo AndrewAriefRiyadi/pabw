@@ -41,7 +41,11 @@ class ProdukController extends Controller
             $validatedData['foto'] = $request->file('foto')->store('foto-produks');
         }
         $validatedData['id_user'] = Auth::id();
-        $validatedData['status_stok'] = 1;
+        if ($validatedData['stok'] >= 1) {
+            $validatedData['status_stok'] = 1;
+        } else {
+            $validatedData['status_stok'] = 0;
+        }
         $new_product = Produk::create($validatedData);
         $logs['deskripsi'] =  Auth::user()->username . ' telah membuat produk dengan id ' .  $new_product->id;
         Logs::create($logs);
@@ -80,9 +84,9 @@ class ProdukController extends Controller
                 if($request->file('foto')){
                     $validatedData['foto'] = $request->file('foto')->store('foto-produks');
                 }
-                if ($validatedData['stok'] > 0) {
+                if ($validatedData['stok'] >= 1) {
                     $validatedData['status_stok'] = 1;
-                }else{
+                } else {
                     $validatedData['status_stok'] = 0;
                 }
                 $produk->update($validatedData);

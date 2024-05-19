@@ -44,7 +44,6 @@
                         </button>
                         <div id="dropdownMenu"
                             class="hidden absolute right-0 z-20 w-48 py-2 mt-2 bg-white border rounded-lg shadow-xl">
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('frmlogout').submit();"
                                 class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>

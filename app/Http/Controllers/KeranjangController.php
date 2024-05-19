@@ -99,6 +99,9 @@ class KeranjangController extends Controller
             $id_produk = $request->id_produk;
             $user = User::where('username', '=', $username)->firstOrFail();
             $produk = Produk::where('id',$id_produk)->firstOrFail();
+            if ($produk->status_stok == 0) {
+                throw new \Exception('Produk tidak ready');
+            }
             $keranjang = Keranjang::where('id_user', $user->id)
                                     ->where('completed',0)->firstOrFail();
             $pivot = PV_Keranjang_Produk::where('id_keranjang', $keranjang->id)
