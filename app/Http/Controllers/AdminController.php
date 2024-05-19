@@ -203,6 +203,18 @@ class AdminController extends Controller
         }
     }
 
+    public function delete_produk($id){
+        try {
+            $produk = Produk::find($id);
+            $produk->delete();
+            $logs['deskripsi'] = Auth::user()->username . ' telah delete produk dengan id ' . $produk->id;
+            Logs::create($logs);
+            return redirect()->route('admin.produks')->with('success', 'Produk berhasil didelete!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
 
     public function updateSaldo(Request $request)
     {
