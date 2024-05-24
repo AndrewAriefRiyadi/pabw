@@ -24,14 +24,14 @@
 
     <title>MyThrift</title>
 
-    <link id="rtl-link" rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/b') }}ootstrap.css">
-    <link rel="stylesheet" href="{{asset ('assets/css/vendors/i') }}on.rangeSlider.min.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/f') }}ont-awesome.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/f') }}eather-icon.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/a') }}nimate.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/s') }}lick/slick.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/vendors/s') }}lick/slick-theme.css">
-    <link id="color-link" rel="stylesheet" type="text/css" href="{{asset ('assets/css/demo4.css') }}">
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/b') }}ootstrap.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendors/i') }}on.rangeSlider.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/f') }}ont-awesome.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/f') }}eather-icon.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/a') }}nimate.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/s') }}lick/slick.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/s') }}lick/slick-theme.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo4.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
@@ -121,7 +121,7 @@
                             <div class="menu-left">
                                 <div class="brand-logo">
                                     <a href="/">
-                                            LOGO
+                                        LOGO
                                     </a>
                                 </div>
 
@@ -142,15 +142,19 @@
                                             </li>
                                             <li><a href="/" class="nav-link menu-title">Home</a></li>
                                             @if (Auth::user())
-                                                <li><a href="/produk/{{Auth::user()->username}}" class="nav-link menu-title">Shop</a></li>
-                                                <li><a href="/keranjang/{{Auth::user()->username}}" class="nav-link menu-title">Cart</a></li>
-                                                <li><a href="/pesanan/{{Auth::user()->username}}" class="nav-link menu-title">Pesanan</a></li>
-                                                <li><a href="/pesanan/{{Auth::user()->username}}/toko" class="nav-link menu-title">Pesanan Toko</a></li>
+                                                <li><a href="/produk/{{ Auth::user()->username }}"
+                                                        class="nav-link menu-title">Shop</a></li>
+                                                <li><a href="/keranjang/{{ Auth::user()->username }}"
+                                                        class="nav-link menu-title">Cart</a></li>
+                                                <li><a href="/pesanan/{{ Auth::user()->username }}"
+                                                        class="nav-link menu-title">Pesanan</a></li>
+                                                <li><a href="/pesanan/{{ Auth::user()->username }}/toko"
+                                                        class="nav-link menu-title">Pesanan Toko</a></li>
                                                 @role('kurir')
-                                                <li><a href="/kurir/barang" class="nav-link menu-title">Kurir</a></li>
+                                                    <li><a href="/kurir/barang" class="nav-link menu-title">Kurir</a></li>
                                                 @endrole
                                                 @role('admin')
-                                                <li><a href="/admin" class="nav-link menu-title">Admin</a></li>
+                                                    <li><a href="/admin" class="nav-link menu-title">Admin</a></li>
                                                 @endrole
                                             @endif
                                         </ul>
@@ -161,10 +165,10 @@
                                 <ul>
                                     @if (Auth::user())
                                         <li>
-                                            <p>Rp {{Auth::user()->saldo}}</p>
+                                            <p>Rp {{ Auth::user()->saldo }}</p>
                                         </li>
                                     @endif
-                                    
+
                                     <li>
                                         <div class="search-box theme-bg-color">
                                             <i data-feather="search"></i>
@@ -181,48 +185,50 @@
                                         </div>
                                     </li> --}}
                                     @if (Auth::user())
-                                    <li class="onhover-dropdown wislist-dropdown">
-                                        <div class="cart-media">
-                                            <a href="/keranjang/{{Auth::user()->username}}">
-                                                <i data-feather="shopping-cart"></i>
-                                                {{-- <span id="cart-count" class="label label-theme rounded-pill">
+                                        <li class="onhover-dropdown wislist-dropdown">
+                                            <div class="cart-media">
+                                                <a href="/keranjang/{{ Auth::user()->username }}">
+                                                    <i data-feather="shopping-cart"></i>
+                                                    {{-- <span id="cart-count" class="label label-theme rounded-pill">
                                                     {{ Cart::instance('cart')->content()->count() }}
                                                 </span> --}}
-                                            </a>
-                                        </div>
-                                    </li>
+                                                </a>
+                                            </div>
+                                        </li>
                                     @endif
-                                    
+
                                     <li class="onhover-dropdown">
                                         <div class="cart-media name-usr">
-                                            @auth <span>{{ Auth::user()->name }}</span> @endauth<i data-feather="user"></i>
+                                            @auth <span>{{ Auth::user()->name }}</span> @endauth
+                                            <i data-feather="user"></i>
                                         </div>
                                         <div class="onhover-div profile-dropdown">
                                             <ul>
-                                                @if(Route::has('login'))
+                                                @if (Route::has('login'))
                                                     @auth
-                                                        @if(Auth::user()->utype === 'ADM')
+                                                        @if (Auth::user()->utype === 'ADM')
                                                             <li>
-                                                                <a href="{{ route('admin.index') }}" class="d-block">Dashboard</a>
-                                                            </li>
-                                                        @else
-                                                            <li>
-                                                                <a href="{{ route('profile.edit') }}" class="d-block">My Account</a>
+                                                                <a href="{{ route('admin.dashboard') }}"
+                                                                    class="d-block">Dashboard</a>
                                                             </li>
                                                         @endif
                                                         <li>
-                                                            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('frmlogout').submit();" class="d-block">Logout</a>
-                                                            <form id="frmlogout" action="{{ route('logout') }}" method="POST">
+                                                            <a href="{{ route('logout') }}"
+                                                                onclick="event.preventDefault();document.getElementById('frmlogout').submit();"
+                                                                class="d-block">Logout</a>
+                                                            <form id="frmlogout" action="{{ route('logout') }}"
+                                                                method="POST">
                                                                 @csrf
                                                             </form>
                                                         </li>
-                                                    @else  
+                                                    @else
                                                         <li>
                                                             <a href="{{ route('login') }}" class="d-block">Login</a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ route('register') }}" class="d-block">Register</a>
-                                                        </li> 
+                                                            <a href="{{ route('register') }}"
+                                                                class="d-block">Register</a>
+                                                        </li>
                                                     @endauth
                                                 @endif
                                             </ul>
@@ -398,7 +404,8 @@
                             <h3>Let’s stay in touch</h3>
                             <div class="form-newsletter">
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control color-4" placeholder="Your Email Address">
+                                    <input type="text" class="form-control color-4"
+                                        placeholder="Your Email Address">
                                     <span class="input-group-text" id="basic-addon4"><i
                                             class="fas fa-arrow-right"></i></span>
                                 </div>
@@ -494,8 +501,8 @@
                             </div>
                             <div class="modal-product">
                                 <div class="modal-contain-img">
-                                    <img src="assets/images/fashion/instagram/4.jpg" class="img-fluid blur-up lazyload"
-                                        alt="">
+                                    <img src="assets/images/fashion/instagram/4.jpg"
+                                        class="img-fluid blur-up lazyload" alt="">
                                 </div>
                                 <div class="modal-contain-details">
                                     <h4>Premier Cropped Skinny Jean</h4>
@@ -620,23 +627,23 @@
         </a>
     </div>
     <div class="bg-overlay"></div>
-    <script src="{{ asset('assets/js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ asset('assets/js/feather/feather.min.js')}}"></script>
-    <script src="{{ asset('assets/js/lazysizes.min.js')}}"></script>
-    <script src="{{ asset('assets/js/slick/slick.js')}}"></script>
-    <script src="{{ asset('assets/js/slick/slick-animation.min.js')}}"></script>
-    <script src="{{ asset('assets/js/slick/custom_slick.js')}}"></script>
-    <script src="{{ asset('assets/js/price-filter.js')}}"></script>
-    <script src="{{ asset('assets/js/ion.rangeSlider.min.js')}}"></script>
-    <script src="{{ asset('assets/js/filter.js')}}"></script>
-    <script src="{{ asset('assets/js/newsletter.js')}}"></script>
-    <script src="{{ asset('assets/js/cart_modal_resize.js')}}"></script>
-    <script src="{{ asset('assets/js/bootstrap/bootstrap-notify.min.js')}}"></script>
-    <script src="{{ asset('assets/js/theme-setting.js')}}"></script>
-    <script src="{{ asset('assets/js/script.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/feather/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lazysizes.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/slick/slick-animation.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick/custom_slick.js') }}"></script>
+    <script src="{{ asset('assets/js/price-filter.js') }}"></script>
+    <script src="{{ asset('assets/js/ion.rangeSlider.min.js') }}"></script>
+    <script src="{{ asset('assets/js/filter.js') }}"></script>
+    <script src="{{ asset('assets/js/newsletter.js') }}"></script>
+    <script src="{{ asset('assets/js/cart_modal_resize.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('assets/js/theme-setting.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
     <script>
-        $(function () {
+        $(function() {
             $('[data-bs-toggle="tooltip"]').tooltip()
         });
     </script>

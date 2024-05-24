@@ -126,6 +126,9 @@
 
                             <div class="col-md-6">
                                 <div class="cloth-details-size">
+                                    <a href="/produk/{{ $user->username }}">
+                                        <i class="fas fa-home">{{$user->username}}</i>
+                                    </a>
                                     <div class="product-count">
                                         <ul>
                                             <li>
