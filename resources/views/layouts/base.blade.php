@@ -213,6 +213,10 @@
                                                             </li>
                                                         @endif
                                                         <li>
+                                                            <a href="/profile/{{Auth::user()->id}}"
+                                                                class="d-block">Profile</a>
+                                                        </li>
+                                                        <li>
                                                             <a href="{{ route('logout') }}"
                                                                 onclick="event.preventDefault();document.getElementById('frmlogout').submit();"
                                                                 class="d-block">Logout</a>

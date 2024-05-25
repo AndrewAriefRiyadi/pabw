@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KurirController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['throttle:6,1'])->name('verification.send');
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -42,6 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
     });
+    
 
 
     Route::get('/produk/{username}', [ProdukController::class, 'show'])->name('produk.show');
